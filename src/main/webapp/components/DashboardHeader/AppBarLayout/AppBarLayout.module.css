@@ -1,0 +1,15 @@
+.textWhite {
+    color: white !important;
+}
+
+.button {
+    color: #f2f2f2 !important;
+}
+
+.button:hover {
+    color: white !important;
+}
+
+.button:active {
+    color: #e515fe !important;
+}
