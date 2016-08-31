@@ -1,1 +1,0 @@
-export {default as AddNewPage} from "./AddNewPage.jsx";

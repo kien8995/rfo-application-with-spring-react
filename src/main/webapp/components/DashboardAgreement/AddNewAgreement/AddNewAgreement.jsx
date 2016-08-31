@@ -10,7 +10,6 @@ import {
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import ExpandTransition from "material-ui/internal/ExpandTransition";
-import TextField from "material-ui/TextField";
 
 import {
     Customer,
@@ -22,7 +21,7 @@ import {
     Confirmation
 } from "../common";
 
-class AddNewPage extends Component {
+class AddNewAgreement extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -115,8 +114,8 @@ class AddNewPage extends Component {
             case 1:
                 return (
                     <Basics
-                        rfoNumber={this.state.customer && this.state.customer.rfoNumber}
-                        customerName={this.state.customer && this.state.customer.customerName}
+                        rfoNumber={this.state.customer && this.state.customer.selectedRow.rfoNumber}
+                        customerName={this.state.customer && this.state.customer.selectedRow.name}
                         onBasicsChange={this.onBasicsChange} />
                 );
             case 2:
@@ -126,8 +125,8 @@ class AddNewPage extends Component {
             case 3:
                 return (
                     <Volume
-                        rfoNumber={this.state.customer.rfoNumber}
-                        customerName={this.state.customer.customerName}
+                        rfoNumber={this.state.customer.selectedRow.rfoNumber}
+                        customerName={this.state.customer.selectedRow.name}
                         onVolumeChange={this.onVolumeChange} />
                 );
             case 4:
@@ -142,7 +141,8 @@ class AddNewPage extends Component {
             case 6:
                 return (
                     <Confirmation
-                        customer={this.state.customer}
+                        customer={this.state.customer.selectedRow}
+                        basics={this.state.basics}
                         />
                 );
             default:
@@ -185,7 +185,7 @@ class AddNewPage extends Component {
                             />
                     }
                     <RaisedButton
-                        label={stepIndex === 0 ? "Create Agreement" : stepIndex === 6 ? "Finish" : "Next"}
+                        label={stepIndex === 0 ? "Create Agreement" : stepIndex === 6 ? "Submit" : "Next"}
                         primary={true}
                         onTouchTap={this.handleNext}
                         disabled={!this.state.customer || this.state.customer.selectedRow === null}
@@ -234,4 +234,4 @@ class AddNewPage extends Component {
 
 }
 
-export default AddNewPage;
+export default AddNewAgreement;

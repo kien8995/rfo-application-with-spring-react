@@ -7,6 +7,8 @@ import {ModelSupportTab} from "./ModelSupportTab";
 import {MiscTextTab} from "./MiscTextTab";
 
 const ConfirmationTabs = ({
+    customer,
+    basics,
     tabIndex,
     onTabChange
 }) => {
@@ -16,7 +18,9 @@ const ConfirmationTabs = ({
             onChange={onTabChange}
             >
             <Tab label="Overview" value={0} >
-                <OverviewTab />
+                <OverviewTab
+                    customer={customer}
+                    basics={basics} />
             </Tab>
             <Tab label="Dealers" value={1}>
                 <DealersTab />

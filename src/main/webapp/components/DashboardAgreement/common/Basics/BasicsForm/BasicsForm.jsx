@@ -6,12 +6,34 @@ import MenuItem from "material-ui/MenuItem";
 import DatePicker from "material-ui/DatePicker";
 import {RadioButton, RadioButtonGroup} from "material-ui/RadioButton";
 
-const items = [
-    <MenuItem key={1} value={"Never"} primaryText="Never" />,
-    <MenuItem key={2} value={"Every Night"} primaryText="Every Night" />,
-    <MenuItem key={3} value={"Weeknights"} primaryText="Weeknights" />,
-    <MenuItem key={4} value={"Weekends"} primaryText="Weekends" />,
-    <MenuItem key={5} value={"Weekly"} primaryText="Weekly" />,
+const fundingMethods = [
+    <MenuItem key={1} value={"Fleet"} primaryText="Fleet" />,
+    <MenuItem key={2} value={"Leasing"} primaryText="Leasing" />
+];
+
+const paymentTos = [
+    <MenuItem key={1} value={"Dealer"} primaryText="Dealer" />,
+    <MenuItem key={2} value={"Customer"} primaryText="Customer" />
+];
+
+const agendaPayments = [
+    <MenuItem key={1} value={"Count and Earn"} primaryText="Count and Earn" />,
+];
+
+const dealersVisibilities = [
+    <MenuItem key={1} value={"Preferred dealers only"} primaryText="Preferred dealers only" />,
+];
+
+const volumeDiscountTypes = [
+    <MenuItem key={1} value={"Retrospective Banding"} primaryText="Retrospective Banding" />,
+];
+
+const discountUnits = [
+    <MenuItem key={1} value={"%"} primaryText="%" />,
+];
+
+const combinabilities = [
+    <MenuItem key={1} value={"End user support only"} primaryText="End user support only" />,
 ];
 
 const BasicsForm = ({
@@ -92,23 +114,6 @@ const BasicsForm = ({
                     value={endDate}
                     onChange={onEndDateChange}/></Col>
             </Row>
-            <br/>
-            <Row middle="md">
-                <Col md={2}>Is a signed agreement required?</Col>
-                <Col md={4}>  <RadioButtonGroup
-                    name="signedAgreement"
-                    defaultSelected="yes"
-                    onChange={onSignedAgreementChange}>
-                    <RadioButton
-                        value="yes"
-                        label="Yes"
-                        />
-                    <RadioButton
-                        value="no"
-                        label="No"
-                        />
-                </RadioButtonGroup></Col>
-            </Row>
             <Row middle="md">
                 <Col md={2}>Funding Method</Col>
                 <Col md={4}><SelectField
@@ -116,8 +121,28 @@ const BasicsForm = ({
                     onChange={onFundingMethodChange}
                     floatingLabelText="Funding Method"
                     >
-                    {items}
+                    {fundingMethods}
                 </SelectField></Col>
+            </Row>
+            <br/>
+            <Row middle="md">
+                <Col md={2}>Is a signed agreement required?</Col>
+                <Col md={4}>  <RadioButtonGroup
+                    name="signedAgreement"
+                    defaultSelected="yes"
+                    onChange={onSignedAgreementChange}
+                    >
+                    <RadioButton
+                        value="yes"
+                        label="Yes"
+                        disabled={fundingMethod !== "Fleet"}
+                        />
+                    <RadioButton
+                        value="no"
+                        label="No"
+                        disabled={fundingMethod !== "Fleet"}
+                        />
+                </RadioButtonGroup></Col>
             </Row>
             <Row middle="md">
                 <Col md={2}>Payment To</Col>
@@ -126,7 +151,7 @@ const BasicsForm = ({
                     onChange={onPaymentToChange}
                     floatingLabelText="Payment To"
                     >
-                    {items}
+                    {paymentTos}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -136,7 +161,7 @@ const BasicsForm = ({
                     onChange={onAgendaPaymentChange}
                     floatingLabelText="Agenda Payment"
                     >
-                    {items}
+                    {agendaPayments}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -156,7 +181,7 @@ const BasicsForm = ({
                     onChange={onDealersVisibilityChange}
                     floatingLabelText="Dealers Visibility"
                     >
-                    {items}
+                    {dealersVisibilities}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -166,7 +191,7 @@ const BasicsForm = ({
                     onChange={onVolumeDiscountTypeChange}
                     floatingLabelText="Volume Discount Type"
                     >
-                    {items}
+                    {volumeDiscountTypes}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -176,7 +201,7 @@ const BasicsForm = ({
                     onChange={onDiscountUnitChange}
                     floatingLabelText="Discount Unit"
                     >
-                    {items}
+                    {discountUnits}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -186,7 +211,7 @@ const BasicsForm = ({
                     onChange={onCombinabilityChange}
                     floatingLabelText="Combinability"
                     >
-                    {items}
+                    {combinabilities}
                 </SelectField></Col>
             </Row>
         </Grid>

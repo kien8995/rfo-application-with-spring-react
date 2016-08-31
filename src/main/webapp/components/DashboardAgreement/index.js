@@ -1,2 +1,2 @@
-export {AddNewPage} from "./AddNewPage";
-export {Search} from "./Search";
+export {AddNewAgreement} from "./AddNewAgreement";
+export {SearchAgreement} from "./SearchAgreement";

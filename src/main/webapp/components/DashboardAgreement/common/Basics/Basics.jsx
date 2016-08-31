@@ -21,7 +21,8 @@ class Basics extends Component {
             dealersVisibility: "",
             volumeDiscountType: "",
             discountUnit: "",
-            combinability: ""
+            combinability: "",
+            status: "Draft"
         };
 
         this.onTextChange = this.onTextChange.bind(this);

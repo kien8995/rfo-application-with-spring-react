@@ -55,7 +55,6 @@ class Customer extends Component {
     }
 
     onButtonSearchClick() {
-        console.log("Clicked..");
         this.props.actions.findCustomers({
             rfoNumber: this.state.rfoNumber,
             name: this.state.name,
@@ -67,24 +66,15 @@ class Customer extends Component {
     }
 
     onRowSelected(key) {
-        let customerTableData = this.props.customers;
         if (key.length === 1) {
-            customerTableData[key[0]]["selected"] = true;
-            this.state.selectedRow = customerTableData[key[0]];
+            this.props.customers[key[0]]["selected"] = true;
+            this.state.selectedRow = this.props.customers[key[0]];
         } else {
             this.state.selectedRow = null;
         }
 
 
         this.props.onCustomerChange(this.state);
-
-
-        //     customerTableData[key].selected = true;
-        //     this.setState({ selectedRow: customerTableData[key] });
-        // } else {
-        //     customerTableData[key].selected = false;
-        //     this.setState({ selectedRow: null });
-        // }
 
         console.log(this.state.selectedRow);
     }

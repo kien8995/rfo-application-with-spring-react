@@ -3,12 +3,12 @@ import {Grid, Row, Col} from "react-flexbox-grid";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 
-const items = [
-    <MenuItem key={1} value={"Never"} primaryText="Never" />,
-    <MenuItem key={2} value={"Every Night"} primaryText="Every Night" />,
-    <MenuItem key={3} value={"Weeknights"} primaryText="Weeknights" />,
-    <MenuItem key={4} value={"Weekends"} primaryText="Weekends" />,
-    <MenuItem key={5} value={"Weekly"} primaryText="Weekly" />,
+const triggerCredits = [
+    <MenuItem key={1} value={"EndOfCalendarYear"} primaryText="End of calendar year" />
+];
+
+const payableTos = [
+    <MenuItem key={1} value={"Dealer"} primaryText="Dealer" />
 ];
 
 const VolumeSelectField = ({
@@ -26,7 +26,7 @@ const VolumeSelectField = ({
                     onChange={onTriggerCreditChange}
                     floatingLabelText="Trigger Credit"
                     >
-                    {items}
+                    {triggerCredits}
                 </SelectField></Col>
             </Row>
             <Row middle="md">
@@ -36,7 +36,7 @@ const VolumeSelectField = ({
                     onChange={onPayableToChange}
                     floatingLabelText="Payable To"
                     >
-                    {items}
+                    {payableTos}
                 </SelectField></Col>
             </Row>
         </Grid>

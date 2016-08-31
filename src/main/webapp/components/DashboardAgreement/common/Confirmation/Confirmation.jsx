@@ -23,11 +23,13 @@ class Confirmation extends Component {
             <div>
                 <ConfirmationForm
                     rfoNumber={this.props.customer.rfoNumber}
-                    customerName={this.props.customer.customerName}
-                    startEnd={"start - end"}
-                    status={"status"}/>
+                    customerName={this.props.customer.name}
+                    startEnd={`${this.props.basics.startDate} - ${this.props.basics.endDate}`}
+                    status={this.props.basics.status}/>
 
                 <ConfirmationTabs
+                    customer={this.props.customer}
+                    basics={this.props.basics}
                     tabIndex={this.state.tabIndex}
                     onTabChange={this.onTabChange}/>
             </div>

@@ -43,10 +43,10 @@ class Volume extends Component {
     }
 
     onAddButtonClick() {
-        if (this.state.payableTo !== "") {
+        if (this.state.bandingValueFrom !== "") {
             let bandingTableData = this.state.bandingTableData;
             bandingTableData.push(`${this.state.bandingValueFrom} - ${this.state.bandingValueTo}`);
-            this.setState({ bandingTableData });
+            this.state.bandingTableData = bandingTableData;
 
             this.props.onVolumeChange(this.state);
         }
@@ -75,5 +75,10 @@ class Volume extends Component {
         );
     }
 }
+
+Volume.defaultProps = {
+    rfoNumber: "",
+    customerName: ""
+};
 
 export default Volume;
