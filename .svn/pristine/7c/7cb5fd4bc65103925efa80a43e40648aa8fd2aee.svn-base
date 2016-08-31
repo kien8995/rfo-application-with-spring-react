@@ -1,0 +1,1 @@
+export {default as ConfirmationTabs} from "./ConfirmationTabs.jsx";

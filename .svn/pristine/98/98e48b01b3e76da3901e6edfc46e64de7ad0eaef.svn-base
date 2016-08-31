@@ -1,0 +1,1 @@
+export {default as MiscTextTab} from "./MiscTextTab.jsx";

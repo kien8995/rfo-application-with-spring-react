@@ -1,0 +1,10 @@
+.subTitle {
+    text-align: center;
+    color: darkgrey;
+}
+
+.subHeader {
+    color: black !important;
+    font-weight: bold !important;
+    font-size: 25px !important;
+}
