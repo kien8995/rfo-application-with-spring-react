@@ -7,14 +7,22 @@ import RaisedButton from "material-ui/RaisedButton";
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
 from "material-ui/Table";
 
-const items = [
-    <MenuItem key={1} value={"Never"} primaryText="Never" />,
-    <MenuItem key={2} value={"Every Night"} primaryText="Every Night" />,
-    <MenuItem key={3} value={"Weeknights"} primaryText="Weeknights" />,
-    <MenuItem key={4} value={"Weekends"} primaryText="Weekends" />,
-    <MenuItem key={5} value={"Weekly"} primaryText="Weekly" />,
+const customerTypes = [
+    <MenuItem key={1} value={"Fleet"} primaryText="Fleet" />,
+    <MenuItem key={2} value={"Leasing"} primaryText="Leasing" />
 ];
 
+const businessAreas = [
+    <MenuItem key={1} value={"0 - 100"} primaryText="0 - 100" />,
+    <MenuItem key={2} value={"100 +"} primaryText="100 +" />
+];
+
+const regions = [
+    <MenuItem key={1} value={"Eastern"} primaryText="Eastern" />,
+    <MenuItem key={3} value={"Western"} primaryText="Western" />,
+    <MenuItem key={4} value={"Southern"} primaryText="Southern" />,
+    <MenuItem key={5} value={"Northern"} primaryText="Northern" />,
+];
 
 const Customer = ({
     handleTextChange,
@@ -28,8 +36,8 @@ const Customer = ({
     region,
     handleRegionChange,
     tableData,
-    handleRowSelection
-
+    handleRowSelection,
+    onButtonSearchClick
 }) => {
     return (
         <div>
@@ -51,7 +59,7 @@ const Customer = ({
                         onChange={handleCustomerTypeChange}
                         floatingLabelText="Customer Type"
                         >
-                        {items}
+                        {customerTypes}
                     </SelectField></Col>
                 </Row>
                 <Row middle="md">
@@ -81,7 +89,7 @@ const Customer = ({
                         onChange={handleBusinessAreaChange}
                         floatingLabelText="Business Area"
                         >
-                        {items}
+                        {businessAreas}
                     </SelectField></Col>
                 </Row>
                 <Row middle="md">
@@ -91,12 +99,15 @@ const Customer = ({
                         onChange={handleRegionChange}
                         floatingLabelText="Region"
                         >
-                        {items}
+                        {regions}
                     </SelectField></Col>
                 </Row>
                 <Row middle="md">
                     <Col md={2}></Col>
-                    <Col md={4}><RaisedButton label="Search" primary={true} /></Col>
+                    <Col md={4}><RaisedButton 
+                        label="Search" 
+                        primary={true}
+                        onClick={onButtonSearchClick} /></Col>
                 </Row>
             </Grid>
 
