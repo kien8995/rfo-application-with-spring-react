@@ -17,4 +17,8 @@ class Dashboard extends Component {
     }
 }
 
+Dashboard.propTypes = {
+    children: PropTypes.node.isRequired
+};
+
 export default Dashboard;

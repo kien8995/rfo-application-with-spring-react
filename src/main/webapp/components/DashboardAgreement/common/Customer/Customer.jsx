@@ -1,119 +1,88 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import * as customerActions from "../../../../actions/customerActions";
+import React, {PropTypes} from "react";
 
 import {CustomerForm} from "./CustomerForm";
 import {CustomerTable} from "./CustomerTable";
 
-class Customer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            rfoNumber: "",
-            name: "",
-            postcode: "",
-            customerType: "",
-            businessArea: "",
-            region: "",
-            selectedRow: null
-        };
-
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onCustomerTypeChange = this.onCustomerTypeChange.bind(this);
-        this.onBusinessAreaChange = this.onBusinessAreaChange.bind(this);
-        this.onRegionChange = this.onRegionChange.bind(this);
-        this.onButtonSearchClick = this.onButtonSearchClick.bind(this);
-        this.onRowSelected = this.onRowSelected.bind(this);
-    }
-
-    onTextChange(event) {
-        let object = {};
-        object[event.target.name] = event.target.value;
-        this.setState(object);
-
-        this.props.onCustomerChange(this.state);
-    }
-
-    onCustomerTypeChange(event, index, value) {
-        this.setState({ customerType: value });
-
-        this.props.onCustomerChange(this.state);
-    }
-
-    onBusinessAreaChange(event, index, value) {
-        this.setState({ businessArea: value });
-
-        this.props.onCustomerChange(this.state);
-    }
-
-    onRegionChange(event, index, value) {
-        this.setState({ region: value });
-
-        this.props.onCustomerChange(this.state);
-    }
-
-    onButtonSearchClick() {
-        this.props.actions.findCustomers({
-            rfoNumber: this.state.rfoNumber,
-            name: this.state.name,
-            postcode: this.state.postcode,
-            customerType: this.state.customerType,
-            businessArea: this.state.businessArea,
-            region: this.state.region
+const Customer = ({
+    customer,
+    customers,
+    actions,
+    onCustomerChange
+}) => {
+    
+    if (customers.length > 0 && (customer.customerList.length !== customers.length)) {
+        customer.customerList = customers.map(customer => {
+            return Object.assign({}, customer);
         });
     }
 
-    onRowSelected(key) {
-        if (key.length === 1) {
-            this.props.customers[key[0]]["selected"] = true;
-            this.state.selectedRow = this.props.customers[key[0]];
-        } else {
-            this.state.selectedRow = null;
+    let onTextChange = (event) => {
+        let object = {};
+        object[event.target.name] = event.target.value;
+
+        onCustomerChange(object);
+    };
+
+    let onCustomerTypeChange = (event, index, value) => {
+
+        onCustomerChange({ customerType: value });
+    };
+
+    let onBusinessAreaChange = (event, index, value) => {
+
+        onCustomerChange({ businessArea: value });
+    };
+
+    let onRegionChange = (event, index, value) => {
+
+        onCustomerChange({ region: value });
+    };
+
+    let onButtonSearchClick = () => {
+        actions.findCustomers(customer);
+    };
+
+    let onRowSelected = (key) => {
+        for (let customer of customer.customerList) {
+            customer["selected"] = false;
         }
-
-
-        this.props.onCustomerChange(this.state);
-
-        console.log(this.state.selectedRow);
-    }
-
-    render() {
-        return (
-            <div>
-                <CustomerForm
-                    rfoNumber={this.state.rfoNumber}
-                    name={this.state.name}
-                    postcode={this.state.postcode}
-                    customerType={this.state.customerType}
-                    businessArea={this.state.businessArea}
-                    region={this.state.region}
-                    onTextChange={this.onTextChange}
-                    onCustomerTypeChange={this.onCustomerTypeChange}
-                    onBusinessAreaChange={this.onBusinessAreaChange}
-                    onRegionChange={this.onRegionChange}
-                    onButtonSearchClick={this.onButtonSearchClick} />
-
-                <CustomerTable
-                    tableData={this.props.customers}
-                    onRowSelected={this.onRowSelected} />
-            </div>
-        );
-    }
-}
-
-function mapStateToProps(state, ownProps) {
-    return {
-        customers: state.customers
+        if (key.length === 1) {
+            customer.customerList[key[0]]["selected"] = true;
+            onCustomerChange({ customerList: customer.customerList });
+            onCustomerChange({ selectedRow: customer.customerList[key[0]] });
+        } else {
+            onCustomerChange({ selectedRow: null });
+        }
     };
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(customerActions, dispatch)
-    };
-}
+    return (
+        <div>
+            <CustomerForm
+                rfoNumber={customer.rfoNumber}
+                name={customer.name}
+                postcode={customer.postcode}
+                customerType={customer.customerType}
+                businessArea={customer.businessArea}
+                region={customer.region}
+                onTextChange={onTextChange}
+                onCustomerTypeChange={onCustomerTypeChange}
+                onBusinessAreaChange={onBusinessAreaChange}
+                onRegionChange={onRegionChange}
+                onButtonSearchClick={onButtonSearchClick} />
 
-export default connect(mapStateToProps, mapDispatchToProps)(Customer);
+            <CustomerTable
+                tableData={customer.customerList}
+                onRowSelected={onRowSelected} />
+        </div>
+    );
+};
+
+Customer.propTypes = {
+    customer: PropTypes.object.isRequired,
+    customers: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
+    onCustomerChange: PropTypes.func.isRequired
+};
+
+export default Customer;
 

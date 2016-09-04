@@ -1,84 +1,65 @@
-import React, {Component} from "react";
+import React, {PropTypes} from "react";
 
 import {VolumeForm} from "./VolumeForm";
 import {VolumeTable} from "./VolumeTable";
 import {VolumeSelectField} from "./VolumeSelectField";
 
-class Volume extends Component {
-    constructor(props) {
-        super(props);
+const Volume = ({
+    customer,
+    volume,
+    onVolumeChange
+}) => {
 
-        this.state = {
-            bandingValueFrom: "",
-            bandingValueTo: "",
-            bandingTableData: [],
-            triggerCredit: "",
-            payableTo: ""
-        };
-
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onTriggerCreditChange = this.onTriggerCreditChange.bind(this);
-        this.onPayableToChange = this.onPayableToChange.bind(this);
-        this.onAddButtonClick = this.onAddButtonClick.bind(this);
-    }
-
-    onTextChange(event) {
+    let onTextChange = (event) => {
         let object = {};
         object[event.target.name] = event.target.value;
-        this.setState(object);
+        onVolumeChange(object);
+    };
 
-        this.props.onVolumeChange(this.state);
-    }
+    let onTriggerCreditChange = (event, index, value) => {
+        onVolumeChange({ triggerCredit: value });
+    };
 
-    onTriggerCreditChange(event, index, value) {
-        this.setState({ triggerCredit: value });
+    let onPayableToChange = (event, index, value) => {
+        onVolumeChange({ payableTo: value });
+    };
 
-        this.props.onVolumeChange(this.state);
-    }
+    let onAddButtonClick = () => {
+        if (volume.bandingValueFrom !== "") {
+            let bandingTableData = volume.bandingTableData;
+            bandingTableData.push(`${volume.bandingValueFrom} - ${volume.bandingValueTo}`);
+            volume.bandingTableData = bandingTableData;
 
-    onPayableToChange(event, index, value) {
-        this.setState({ payableTo: value });
-
-        this.props.onVolumeChange(this.state);
-    }
-
-    onAddButtonClick() {
-        if (this.state.bandingValueFrom !== "") {
-            let bandingTableData = this.state.bandingTableData;
-            bandingTableData.push(`${this.state.bandingValueFrom} - ${this.state.bandingValueTo}`);
-            this.state.bandingTableData = bandingTableData;
-
-            this.props.onVolumeChange(this.state);
+            onVolumeChange({ bandingTableData: bandingTableData });
         }
-    }
+    };
 
-    render() {
-        return (
-            <div>
-                <VolumeForm
-                    rfoNumber={this.props.rfoNumber}
-                    customerName={this.props.customerName}
-                    bandingValueFrom={this.state.bandingValueFrom}
-                    bandingValueTo={this.state.bandingValueTo}
-                    onTextChange={this.onTextChange}
-                    onAddButtonClick={this.onAddButtonClick} />
+    return (
+        <div>
+            <VolumeForm
+                rfoNumber={customer.rfoNumber}
+                customerName={customer.name}
+                bandingValueFrom={volume.bandingValueFrom}
+                bandingValueTo={volume.bandingValueTo}
+                onTextChange={onTextChange}
+                onAddButtonClick={onAddButtonClick} />
 
-                <VolumeTable
-                    bandingTableData={this.state.bandingTableData} />
+            <VolumeTable
+                bandingTableData={volume.bandingTableData} />
 
-                <VolumeSelectField
-                    triggerCredit={this.state.triggerCredit}
-                    payableTo={this.state.payableTo}
-                    onTriggerCreditChange={this.onTriggerCreditChange}
-                    onPayableToChange={this.onPayableToChange} />
-            </div>
-        );
-    }
-}
+            <VolumeSelectField
+                triggerCredit={volume.triggerCredit}
+                payableTo={volume.payableTo}
+                onTriggerCreditChange={onTriggerCreditChange}
+                onPayableToChange={onPayableToChange} />
+        </div>
+    );
+};
 
-Volume.defaultProps = {
-    rfoNumber: "",
-    customerName: ""
+Volume.propTypes = {
+    customer: PropTypes.object.isRequired,
+    volume: PropTypes.object.isRequired,
+    onVolumeChange: PropTypes.func.isRequired
 };
 
 export default Volume;

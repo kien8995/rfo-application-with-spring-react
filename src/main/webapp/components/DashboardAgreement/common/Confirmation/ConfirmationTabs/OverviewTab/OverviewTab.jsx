@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 
 const OverviewTab = ({
@@ -55,6 +55,16 @@ const OverviewTab = ({
             </Grid>
         </div>
     );
+};
+
+OverviewTab.propTypes = {
+    customer: PropTypes.object.isRequired,
+    basics: PropTypes.object.isRequired
+};
+
+OverviewTab.defaultProps = {
+    customer: {},
+    basics: {}
 };
 
 export default OverviewTab;

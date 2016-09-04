@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import {
     Table,
@@ -59,6 +59,14 @@ const VolumeTable = ({
             </TableFooter>
         </Table>
     );
+};
+
+VolumeTable.propTypes = {
+    bandingTableData: PropTypes.array.isRequired
+};
+
+VolumeTable.defaultProps = {
+    bandingTableData: []
 };
 
 export default VolumeTable;

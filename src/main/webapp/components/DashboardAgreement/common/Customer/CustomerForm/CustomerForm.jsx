@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import TextField from "material-ui/TextField";
 import SelectField from "material-ui/SelectField";
@@ -106,6 +106,34 @@ const CustomerForm = ({
             </Row>
         </Grid>
     );
+};
+
+CustomerForm.propTypes = {
+    rfoNumber: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    postcode: PropTypes.string.isRequired,
+    customerType: PropTypes.string.isRequired,
+    businessArea: PropTypes.string.isRequired,
+    region: PropTypes.string.isRequired,
+    onTextChange: PropTypes.func.isRequired,
+    onCustomerTypeChange: PropTypes.func.isRequired,
+    onBusinessAreaChange: PropTypes.func.isRequired,
+    onRegionChange: PropTypes.func.isRequired,
+    onButtonSearchClick: PropTypes.func.isRequired
+};
+
+CustomerForm.defaultProps = {
+    rfoNumber: "",
+    name: "",
+    postcode: "",
+    customerType: "",
+    businessArea: "",
+    region: "",
+    onTextChange: (e) => e,
+    onCustomerTypeChange: (e) => e,
+    onBusinessAreaChange: (e) => e,
+    onRegionChange: (e) => e,
+    onButtonSearchClick: (e) => e
 };
 
 export default CustomerForm;

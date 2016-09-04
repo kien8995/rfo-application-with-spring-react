@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import TextField from "material-ui/TextField";
 
@@ -34,6 +34,18 @@ const MiscTextForm = ({
             </Row>
         </Grid>
     );
+};
+
+MiscTextForm.propTypes = {
+    comments: PropTypes.string.isRequired,
+    supportJustification: PropTypes.string.isRequired,
+    onTextChange: PropTypes.func.isRequired
+};
+
+MiscTextForm.defaultProps = {
+    comments: "",
+    supportJustification: "",
+    onTextChange: (e) => e
 };
 
 export default MiscTextForm;

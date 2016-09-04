@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import * as customerActions from "../../../actions/customerActions";
+import * as dealerActions from "../../../actions/dealerActions";
 
 import {
     Step,
     Stepper,
-    StepLabel,
+    StepLabel
 } from "material-ui/Stepper";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
@@ -14,7 +16,7 @@ import ExpandTransition from "material-ui/internal/ExpandTransition";
 import {
     Customer,
     Basics,
-    Dealers,
+    Dealer,
     Volume,
     ModelSupport,
     MiscText,
@@ -24,28 +26,70 @@ import {
 class AddNewAgreement extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             loading: false,
             finished: false,
             stepIndex: 0,
-            customer: null,
-            basics: null,
-            dealers: null,
-            volume: null,
-            miscText: null,
-            confirmation: null
+            customer: {
+                rfoNumber: "",
+                name: "",
+                postcode: "",
+                customerType: "",
+                businessArea: "",
+                region: "",
+                customerList: [],
+                selectedRow: null
+            },
+            basics: {
+                agreementName: "",
+                agreementDescription: "",
+                startDate: null,
+                endDate: null,
+                signedAgreement: "",
+                fundingMethod: "",
+                paymentTo: "",
+                agendaPayment: "",
+                handlingChange: "",
+                dealersVisibility: "",
+                volumeDiscountType: "",
+                discountUnit: "",
+                combinability: "",
+                status: "Draft"
+            },
+            dealer: {
+                dealerCode: "",
+                dealerName: "",
+                dealerList: [],
+                applicableDealers: []
+            },
+            volume: {
+                bandingValueFrom: "",
+                bandingValueTo: "",
+                bandingTableData: [],
+                triggerCredit: "",
+                payableTo: ""
+            },
+            miscText: {
+                comments: "",
+                supportJustification: ""
+            },
+            confirmation: {
+                tabIndex: 0
+            }
         };
 
         this.onCustomerChange = this.onCustomerChange.bind(this);
 
         this.onBasicsChange = this.onBasicsChange.bind(this);
 
-        this.onDealersChange = this.onDealersChange.bind(this);
+        this.onDealerChange = this.onDealerChange.bind(this);
 
         this.onVolumeChange = this.onVolumeChange.bind(this);
 
         this.onMiscTextChange = this.onMiscTextChange.bind(this);
 
+        this.onConfirmationChange = this.onConfirmationChange.bind(this);
 
         //-- Stepper --
         this.getStepContent = this.getStepContent.bind(this);
@@ -54,27 +98,33 @@ class AddNewAgreement extends Component {
         //-- Stepper --
     }
 
+    componentDidMount() {
+        this.props.dealerActions.loadDealers();
+    }
+
     onCustomerChange(value) {
-        this.setState({ customer: value });
+        this.setState({ customer: Object.assign({}, this.state.customer, value) });
     }
 
     onBasicsChange(value) {
-        this.setState({ basics: value });
+        this.setState({ basics: Object.assign({}, this.state.basics, value) });
     }
 
-    onDealersChange(value) {
-        this.setState({ dealers: value });
+    onDealerChange(value) {
+        this.setState({ dealer: Object.assign({}, this.state.dealer, value) });
     }
 
     onVolumeChange(value) {
-        this.setState({ volume: value });
+        this.setState({ volume: Object.assign({}, this.state.volume, value) });
     }
 
     onMiscTextChange(value) {
-        this.setState({ miscText: value });
+        this.setState({ miscText: Object.assign({}, this.state.miscText, value) });
     }
 
-
+    onConfirmationChange(value) {
+        this.setState({ confirmation: Object.assign({}, this.state.confirmation, value) });
+    }
 
     //-- Stepper --
 
@@ -109,24 +159,31 @@ class AddNewAgreement extends Component {
         switch (stepIndex) {
             case 0:
                 return (
-                    <Customer onCustomerChange={this.onCustomerChange} />
+                    <Customer
+                        customer={this.state.customer}
+                        customers={this.props.customers}
+                        actions={this.props.customerActions}
+                        onCustomerChange={this.onCustomerChange} />
                 );
             case 1:
                 return (
                     <Basics
-                        rfoNumber={this.state.customer && this.state.customer.selectedRow.rfoNumber}
-                        customerName={this.state.customer && this.state.customer.selectedRow.name}
+                        customer={this.state.customer.selectedRow}
+                        basics={this.state.basics}
                         onBasicsChange={this.onBasicsChange} />
                 );
             case 2:
                 return (
-                    <Dealers onDealersChange={this.onDealersChange} />
+                    <Dealer
+                        dealer={this.state.dealer}
+                        dealers={this.props.dealers}
+                        onDealerChange={this.onDealerChange} />
                 );
             case 3:
                 return (
                     <Volume
-                        rfoNumber={this.state.customer.selectedRow.rfoNumber}
-                        customerName={this.state.customer.selectedRow.name}
+                        customer={this.state.customer.selectedRow}
+                        volume={this.state.volume}
                         onVolumeChange={this.onVolumeChange} />
                 );
             case 4:
@@ -136,6 +193,7 @@ class AddNewAgreement extends Component {
             case 5:
                 return (
                     <MiscText
+                        miscText={this.state.miscText}
                         onMiscTextChange={this.onMiscTextChange} />
                 );
             case 6:
@@ -143,7 +201,8 @@ class AddNewAgreement extends Component {
                     <Confirmation
                         customer={this.state.customer.selectedRow}
                         basics={this.state.basics}
-                        />
+                        confirmation={this.state.confirmation}
+                        onConfirmationChange={this.onConfirmationChange} />
                 );
             default:
                 return "You\"re a long way from home !";
@@ -188,7 +247,7 @@ class AddNewAgreement extends Component {
                         label={stepIndex === 0 ? "Create Agreement" : stepIndex === 6 ? "Submit" : "Next"}
                         primary={true}
                         onTouchTap={this.handleNext}
-                        disabled={!this.state.customer || this.state.customer.selectedRow === null}
+                        disabled={this.state.customer.selectedRow === null}
                         />
                 </div>
             </div>
@@ -231,7 +290,20 @@ class AddNewAgreement extends Component {
             </div>
         );
     }
-
 }
 
-export default AddNewAgreement;
+function mapStateToProps(state, ownProps) {
+    return {
+        customers: state.customers,
+        dealers: state.dealers
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        customerActions: bindActionCreators(customerActions, dispatch),
+        dealerActions: bindActionCreators(dealerActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewAgreement);

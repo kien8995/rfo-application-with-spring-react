@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import TextField from "material-ui/TextField";
 import SelectField from "material-ui/SelectField";
@@ -216,6 +216,62 @@ const BasicsForm = ({
             </Row>
         </Grid>
     );
+};
+
+BasicsForm.propTypes = {
+    rfoNumber: PropTypes.string.isRequired,
+    customerName: PropTypes.string.isRequired,
+    agreementName: PropTypes.string.isRequired,
+    agreementDescription: PropTypes.string,
+    startDate: PropTypes.object,
+    endDate: PropTypes.object,
+    fundingMethod: PropTypes.string,
+    paymentTo: PropTypes.string,
+    agendaPayment: PropTypes.string,
+    handlingChange: PropTypes.string,
+    dealersVisibility: PropTypes.string,
+    volumeDiscountType: PropTypes.string,
+    discountUnit: PropTypes.string,
+    combinability: PropTypes.string,
+    onTextChange: PropTypes.func.isRequired,
+    onStartDateChange: PropTypes.func.isRequired,
+    onEndDateChange: PropTypes.func.isRequired,
+    onSignedAgreementChange: PropTypes.func.isRequired,
+    onFundingMethodChange: PropTypes.func.isRequired,
+    onPaymentToChange: PropTypes.func.isRequired,
+    onAgendaPaymentChange: PropTypes.func.isRequired,
+    onDealersVisibilityChange: PropTypes.func.isRequired,
+    onVolumeDiscountTypeChange: PropTypes.func.isRequired,
+    onDiscountUnitChange: PropTypes.func.isRequired,
+    onCombinabilityChange: PropTypes.func.isRequired
+};
+
+BasicsForm.defaultProps = {
+    rfoNumber: "",
+    customerName: "",
+    agreementName: "",
+    agreementDescription: "",
+    startDate: {},
+    endDate: {},
+    fundingMethod: "",
+    paymentTo: "",
+    agendaPayment: "",
+    handlingChange: "",
+    dealersVisibility: "",
+    volumeDiscountType: "",
+    discountUnit: "",
+    combinability: "",
+    onTextChange: (e) => e,
+    onStartDateChange: (e) => e,
+    onEndDateChange: (e) => e,
+    onSignedAgreementChange: (e) => e,
+    onFundingMethodChange: (e) => e,
+    onPaymentToChange: (e) => e,
+    onAgendaPaymentChange: (e) => e,
+    onDealersVisibilityChange: (e) => e,
+    onVolumeDiscountTypeChange: (e) => e,
+    onDiscountUnitChange: (e) => e,
+    onCombinabilityChange: (e) => e
 };
 
 export default BasicsForm;

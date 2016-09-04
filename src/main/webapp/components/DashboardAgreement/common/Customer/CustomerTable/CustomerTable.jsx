@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {
     Table,
     TableBody,
@@ -69,6 +69,16 @@ const CustomerTable = ({
             </TableFooter>
         </Table>
     );
+};
+
+CustomerTable.propTypes = {
+    tableData: PropTypes.array.isRequired,
+    onRowSelected: PropTypes.func.isRequired
+};
+
+CustomerTable.defaultProps = {
+    tableData: [],
+    onRowSelected: (e) => e
 };
 
 export default CustomerTable;

@@ -1,11 +1,11 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
 
-export default function customerReducer(state = initialState.customers, action) {
+export default function dealerReducer(state = initialState.dealers, action) {
     switch (action.type) {
-        case types.FIND_CUSTOMERS_SUCCESS:
+        case types.LOAD_DEALERS_SUCCESS:
             return Object.assign([],
-                action.customers
+                action.dealers
             );
 
         default:

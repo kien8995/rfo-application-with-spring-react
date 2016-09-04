@@ -1,15 +1,15 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {
-    Table, 
-    TableBody, 
-    TableFooter, 
-    TableHeader, 
-    TableHeaderColumn, 
-    TableRow, 
+    Table,
+    TableBody,
+    TableFooter,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
     TableRowColumn
 } from "material-ui/Table";
 
-const DealersTable = ({
+const DealerTable = ({
     dealers,
     applicableDealers,
     onDealersRowSelected,
@@ -32,7 +32,7 @@ const DealersTable = ({
                     >
                     <TableRow>
                         <TableHeaderColumn colSpan="4" style={{ textAlign: "center" }}>
-                            Matching Dealers
+                            Dealers Table
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
@@ -83,7 +83,7 @@ const DealersTable = ({
                     >
                     <TableRow>
                         <TableHeaderColumn colSpan="4" style={{ textAlign: "center" }}>
-                            Matching Dealers
+                            Applicable Dealers
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
@@ -122,4 +122,18 @@ const DealersTable = ({
     );
 };
 
-export default DealersTable;
+DealerTable.propTypes = {
+    dealers: PropTypes.array.isRequired,
+    applicableDealers: PropTypes.array.isRequired,
+    onDealersRowSelected: PropTypes.func.isRequired,
+    onApplicableDealersRowSelected: PropTypes.func.isRequired
+};
+
+DealerTable.defaultProps = {
+    dealers: [],
+    applicableDealers: [],
+    onDealersRowSelected: (e) => e,
+    onApplicableDealersRowSelected: (e) => e
+};
+
+export default DealerTable;

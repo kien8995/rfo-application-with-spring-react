@@ -1,4 +1,4 @@
-import React, {PropTypes} from "react";
+import React from "react";
 import {Tabs, Tab} from "material-ui/Tabs";
 
 import {OverviewTab} from "./OverviewTab";
@@ -10,7 +10,7 @@ const ConfirmationTabs = ({
     customer,
     basics,
     tabIndex,
-    onTabChange
+    onTabChange,
 }) => {
     return (
         <Tabs
@@ -33,16 +33,6 @@ const ConfirmationTabs = ({
             </Tab>
         </Tabs>
     );
-};
-
-ConfirmationTabs.propTypes = {
-    customer: PropTypes.object.isRequired,
-    basics: PropTypes.object.isRequired
-};
-
-ConfirmationTabs.defaultProps = {
-    customer: {},
-    basics: {}
 };
  
 export default ConfirmationTabs;

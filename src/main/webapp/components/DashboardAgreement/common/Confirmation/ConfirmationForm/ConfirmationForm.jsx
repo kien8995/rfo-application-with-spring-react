@@ -1,12 +1,14 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 
 const ConfirmationForm = ({
-    rfoNumber,
-    customerName,
-    startEnd,
-    status
+    customer,
+    basics
 }) => {
+    let rfoNumber = customer.rfoNumber;
+    let customerName = customer.name;
+    let startEnd = `${basics.startDate} - ${basics.endDate}`;
+    let status = basics.status;
     return (
         <Grid>
             <Row middle="md">
@@ -27,6 +29,16 @@ const ConfirmationForm = ({
             </Row>
         </Grid>
     );
+};
+
+ConfirmationForm.propTypes = {
+    customer: PropTypes.object.isRequired,
+    basics: PropTypes.object.isRequired
+};
+
+ConfirmationForm.defaultProps = {
+    customer: {},
+    basics: {}
 };
 
 export default ConfirmationForm;

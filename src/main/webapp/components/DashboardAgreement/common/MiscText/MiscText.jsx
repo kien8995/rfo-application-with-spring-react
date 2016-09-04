@@ -1,37 +1,30 @@
-import React, {Component} from "react";
+import React, {PropTypes} from "react";
 
 import {MiscTextForm} from "./MiscTextForm";
 
-class MiscText extends Component {
-    constructor(props) {
-        super(props);
+const MiscText = ({
+    miscText,
+    onMiscTextChange
+}) => {
 
-        this.state = {
-            comments: "",
-            supportJustification: ""
-        };
-
-        this.onTextChange = this.onTextChange.bind(this);
-    }
-
-    onTextChange(event) {
+    let onTextChange = (event) => {
         let object = {};
         object[event.target.name] = event.target.value;
-        this.setState(object);
+        onMiscTextChange(object);
+    };
 
-        this.props.onMiscTextChange(this.state);
-    }
+    return (
+        <div>
+            <MiscTextForm
+                comments={miscText.comments}
+                supportJustification={miscText.supportJustification}
+                onTextChange={onTextChange} />
+        </div>
+    );
+};
 
-    render() {
-        return (
-            <div>
-                <MiscTextForm 
-                    comments={this.state.comments}
-                    supportJustification={this.state.supportJustification}
-                    onTextChange={this.onTextChange} />
-            </div>
-        );
-    }
-}
+MiscText.propTypes = {
+    onMiscTextChange: PropTypes.func.isRequired
+};
 
 export default MiscText;

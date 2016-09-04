@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
@@ -41,6 +41,20 @@ const VolumeSelectField = ({
             </Row>
         </Grid>
     );
+};
+
+VolumeSelectField.propTypes = {
+    triggerCredit: PropTypes.string.isRequired,
+    payableTo: PropTypes.string.isRequired,
+    onTriggerCreditChange: PropTypes.func.isRequired,
+    onPayableToChange: PropTypes.func.isRequired
+};
+
+VolumeSelectField.defaultProps = {
+    triggerCredit: "",
+    payableTo: "",
+    onTriggerCreditChange: (e) => e,
+    onPayableToChange: (e) => e
 };
 
 export default VolumeSelectField;

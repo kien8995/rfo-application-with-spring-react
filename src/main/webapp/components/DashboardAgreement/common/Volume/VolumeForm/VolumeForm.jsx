@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -51,6 +51,24 @@ const VolumeForm = ({
             </Row>
         </Grid>
     );
+};
+
+VolumeForm.propTypes = {
+    rfoNumber: PropTypes.string.isRequired,
+    customerName: PropTypes.string.isRequired,
+    bandingValueFrom: PropTypes.string.isRequired,
+    bandingValueTo: PropTypes.string.isRequired,
+    onTextChange: PropTypes.func.isRequired,
+    onAddButtonClick: PropTypes.func.isRequired
+};
+
+VolumeForm.defaultProps = {
+    rfoNumber: "",
+    customerName: "",
+    bandingValueFrom: "",
+    bandingValueTo: "",
+    onTextChange: (e) => e,
+    onAddButtonClick: (e) => e
 };
 
 export default VolumeForm;

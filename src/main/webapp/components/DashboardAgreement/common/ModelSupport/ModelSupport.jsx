@@ -1,18 +1,12 @@
-import React, {Component} from "react";
+import React from "react";
 
-class ModelSupport extends Component {
-    constructor(props) {
-        super(props);
+const ModelSupport = () => {
 
-    }
-
-    render() {
-        return (
-            <div>
-                This function is out of scope, it will be implemented by Honda-UK
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            This function is out of scope, it will be implemented by Honda-UK
+        </div>
+    );
+};
 
 export default ModelSupport;

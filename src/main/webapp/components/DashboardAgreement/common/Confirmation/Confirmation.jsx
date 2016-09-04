@@ -1,40 +1,39 @@
-import React, {Component} from "react";
+import React, {PropTypes} from "react";
 
 import {ConfirmationForm} from "./ConfirmationForm";
 import {ConfirmationTabs} from "./ConfirmationTabs";
 
-class Confirmation extends Component {
-    constructor(props) {
-        super(props);
+const Confirmation = ({
+    customer,
+    basics,
+    confirmation,
+    onConfirmationChange
+}) => {
 
-        this.state = {
-            tabIndex: 0
-        };
+    let onTabChange = (value) => {
+        onConfirmationChange({ tabIndex: value });
+    };
 
-        this.onTabChange = this.onTabChange.bind(this);
-    }
+    return (
+        <div>
+            <ConfirmationForm
+                customer={customer}
+                basics={basics} />
 
-    onTabChange(value) {
-        this.setState({ tabIndex: value });
-    }
+            <ConfirmationTabs
+                customer={customer}
+                basics={basics}
+                tabIndex={confirmation.tabIndex}
+                onTabChange={onTabChange} />
+        </div>
+    );
+};
 
-    render() {
-        return (
-            <div>
-                <ConfirmationForm
-                    rfoNumber={this.props.customer.rfoNumber}
-                    customerName={this.props.customer.name}
-                    startEnd={`${this.props.basics.startDate} - ${this.props.basics.endDate}`}
-                    status={this.props.basics.status}/>
-
-                <ConfirmationTabs
-                    customer={this.props.customer}
-                    basics={this.props.basics}
-                    tabIndex={this.state.tabIndex}
-                    onTabChange={this.onTabChange}/>
-            </div>
-        );
-    }
-}
+Confirmation.propTypes = {
+    customer: PropTypes.object.isRequired,
+    basics: PropTypes.object.isRequired,
+    confirmation: PropTypes.object.isRequired,
+    onConfirmationChange: PropTypes.func.isRequired
+};
 
 export default Confirmation;
