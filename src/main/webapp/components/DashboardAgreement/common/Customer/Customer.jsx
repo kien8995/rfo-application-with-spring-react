@@ -9,8 +9,9 @@ const Customer = ({
     actions,
     onCustomerChange
 }) => {
-    
-    //this is comments
+
+
+        //new comments
 
     if (customers.length > 0 && (customer.customerList.length !== customers.length)) {
         customer.customerList = customers.map(customer => {
