@@ -1,135 +1,185 @@
 package com.kientran.entities;
 
-public class Company {
-	private int CompanyId;
-	private String Name, Type, Status, Sector, Phonenumber, Faxnumber;
-	private String Emailaddress, CreateDate, CreateBy, AMISCode, BusinessArea, RFONumber;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "company")
+public class Company implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "company_id", nullable = false)
+	private Long companyId;
+
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "status")
+	private String status;
+
+	@Column(name = "sector")
+	private String sector;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@Column(name = "fax_number")
+	private String faxNumber;
+
+	@Column(name = "email_address")
+	private String emailAddress;
+
+	@Column(name = "amis_code")
+	private String amisCode;
+
+	@Column(name = "business_area")
+	private String businessArea;
+
+	@Column(name = "created_date")
+	private Date createdDate;
+
+	@Column(name = "created_by")
+	private String createdBy;
+
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	private List<Address> addressList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	private List<Long> rfoNumberList = new ArrayList<>();
 
 	public Company() {
 		super();
 	}
 
-	public Company(int companyId, String name, String type, String status, String sector, String phonenumber,
-			String faxnumber, String emailaddress, String createDate, String createBy, String aMISCode,
-			String businessArea, String rFONumber) {
-		super();
-		CompanyId = companyId;
-		Name = name;
-		Type = type;
-		Status = status;
-		Sector = sector;
-		Phonenumber = phonenumber;
-		Faxnumber = faxnumber;
-		Emailaddress = emailaddress;
-		CreateDate = createDate;
-		CreateBy = createBy;
-		AMISCode = aMISCode;
-		BusinessArea = businessArea;
-		RFONumber = rFONumber;
+	public Long getCompanyId() {
+		return companyId;
 	}
 
-	public int getCompanyId() {
-		return CompanyId;
-	}
-
-	public void setCompanyId(int companyId) {
-		CompanyId = companyId;
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getType() {
-		return Type;
+		return type;
 	}
 
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
 
 	public String getSector() {
-		return Sector;
+		return sector;
 	}
 
 	public void setSector(String sector) {
-		Sector = sector;
+		this.sector = sector;
 	}
 
-	public String getPhonenumber() {
-		return Phonenumber;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		Phonenumber = phonenumber;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getFaxnumber() {
-		return Faxnumber;
+	public String getFaxNumber() {
+		return faxNumber;
 	}
 
-	public void setFaxnumber(String faxnumber) {
-		Faxnumber = faxnumber;
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
 	}
 
-	public String getEmailaddress() {
-		return Emailaddress;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setEmailaddress(String emailaddress) {
-		Emailaddress = emailaddress;
-	}
-
-	public String getCreateDate() {
-		return CreateDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		CreateDate = createDate;
-	}
-
-	public String getCreateBy() {
-		return CreateBy;
-	}
-
-	public void setCreateBy(String createBy) {
-		CreateBy = createBy;
-	}
-
-	public String getAMISCode() {
-		return AMISCode;
-	}
-
-	public void setAMISCode(String aMISCode) {
-		AMISCode = aMISCode;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public String getBusinessArea() {
-		return BusinessArea;
+		return businessArea;
 	}
 
 	public void setBusinessArea(String businessArea) {
-		BusinessArea = businessArea;
+		this.businessArea = businessArea;
 	}
 
-	public String getRFONumber() {
-		return RFONumber;
+	public String getAmisCode() {
+		return amisCode;
 	}
 
-	public void setRFONumber(String rFONumber) {
-		RFONumber = rFONumber;
+	public void setAmisCode(String amisCode) {
+		this.amisCode = amisCode;
+	}
+
+	public List<Long> getRfoNumberList() {
+		return rfoNumberList;
+	}
+
+	public void setRfoNumberList(List<Long> rfoNumberList) {
+		this.rfoNumberList = rfoNumberList;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 }

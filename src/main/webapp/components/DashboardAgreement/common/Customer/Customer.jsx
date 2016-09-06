@@ -9,10 +9,7 @@ const Customer = ({
     actions,
     onCustomerChange
 }) => {
-
-
-        //new comments
-
+    
     if (customers.length > 0 && (customer.customerList.length !== customers.length)) {
         customer.customerList = customers.map(customer => {
             return Object.assign({}, customer);

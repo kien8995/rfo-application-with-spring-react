@@ -1,33 +1,64 @@
 package com.kientran.entities;
 
-public class CustomerType {
-	private int CustomerTypeId;
-	private String CustomerType;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "customer_type")
+public class CustomerType implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "customer_type_id", nullable = false)
+	private Long customerTypeId;
+
+	@Column(name = "customer_type")
+	private String customerType;
+
+	@OneToMany(mappedBy = "customerType", cascade = CascadeType.ALL)
+	private List<RFONumber> rfoNumberList = new ArrayList<>();
 
 	public CustomerType() {
 		super();
 	}
 
-	public CustomerType(int customerTypeId, String customerType) {
-		super();
-		CustomerTypeId = customerTypeId;
-		CustomerType = customerType;
+	public Long getCustomerTypeId() {
+		return customerTypeId;
 	}
 
-	public int getCustomerTypeId() {
-		return CustomerTypeId;
-	}
-
-	public void setCustomerTypeId(int customerTypeId) {
-		CustomerTypeId = customerTypeId;
+	public void setCustomerTypeId(Long customerTypeId) {
+		this.customerTypeId = customerTypeId;
 	}
 
 	public String getCustomerType() {
-		return CustomerType;
+		return customerType;
 	}
 
 	public void setCustomerType(String customerType) {
-		CustomerType = customerType;
+		this.customerType = customerType;
+	}
+
+	public List<RFONumber> getRfoNumberList() {
+		return rfoNumberList;
+	}
+
+	public void setRfoNumberList(List<RFONumber> rfoNumberList) {
+		this.rfoNumberList = rfoNumberList;
 	}
 
 }

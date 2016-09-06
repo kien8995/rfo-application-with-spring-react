@@ -1,127 +1,150 @@
 package com.kientran.entities;
 
-public class Address {
-	// Constants
-	public static final String ADDRESS = "NO ADDRESS";
-	public static final String CITY = "NO CITY";
-	public static final String STATE = "NO STATE";
-	public static final String COUNTRY = "NO COUNTRY";
-	public static final String POSTCODE = "NO POSTCODE";
-	public static final int COMPANYID = 0;
+import java.io.Serializable;
 
-	// properties
-	private String Address1, Address2, Address3, Address4, Address5, City, State, Country, Postcode;
-	private int CompanyId;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	// constructor
+@Entity
+@Table(name = "address")
+public class Address implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "address_id", nullable = false)
+	private Long addressId;
+
+	@Column(name = "address_1")
+	private String address1;
+
+	@Column(name = "address_2")
+	private String address2;
+
+	@Column(name = "address_3")
+	private String address3;
+
+	@Column(name = "address_4")
+	private String address4;
+
+	@Column(name = "address_5")
+	private String address5;
+
+	@Column(name = "city")
+	private String city;
+
+	@Column(name = "state")
+	private String state;
+
+	@Column(name = "country")
+	private String country;
+
+	@Column(name = "postcode")
+	private String postcode;
+
+	@ManyToOne
+	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
+	private Company company;
+
 	public Address() {
-		Address1 = Address.ADDRESS;
-		Address2 = Address.ADDRESS;
-		Address3 = Address.ADDRESS;
-		Address4 = Address.ADDRESS;
-		Address5 = Address.ADDRESS;
-		City = Address.CITY;
-		State = Address.STATE;
-		Country = Address.COUNTRY;
-		Postcode = Address.POSTCODE;
-		CompanyId = Address.COMPANYID;
-
-	}
-
-	public Address(String address1, String address2, String address3, String address4, String address5, String city,
-			String state, String country, String postcode, int companyId) {
 		super();
-		Address1 = address1;
-		Address2 = address2;
-		Address3 = address3;
-		Address4 = address4;
-		Address5 = address5;
-		City = city;
-		State = state;
-		Country = country;
-		Postcode = postcode;
-		CompanyId = companyId;
 	}
-	// getter setter
+
+	public Long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
+	}
 
 	public String getAddress1() {
-		return Address1;
+		return address1;
 	}
 
 	public void setAddress1(String address1) {
-		Address1 = address1;
+		this.address1 = address1;
 	}
 
 	public String getAddress2() {
-		return Address2;
+		return address2;
 	}
 
 	public void setAddress2(String address2) {
-		Address2 = address2;
+		this.address2 = address2;
 	}
 
 	public String getAddress3() {
-		return Address3;
+		return address3;
 	}
 
 	public void setAddress3(String address3) {
-		Address3 = address3;
+		this.address3 = address3;
 	}
 
 	public String getAddress4() {
-		return Address4;
+		return address4;
 	}
 
 	public void setAddress4(String address4) {
-		Address4 = address4;
+		this.address4 = address4;
 	}
 
 	public String getAddress5() {
-		return Address5;
+		return address5;
 	}
 
 	public void setAddress5(String address5) {
-		Address5 = address5;
+		this.address5 = address5;
 	}
 
 	public String getCity() {
-		return City;
+		return city;
 	}
 
 	public void setCity(String city) {
-		City = city;
+		this.city = city;
 	}
 
 	public String getState() {
-		return State;
+		return state;
 	}
 
 	public void setState(String state) {
-		State = state;
+		this.state = state;
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
 
 	public String getPostcode() {
-		return Postcode;
+		return postcode;
 	}
 
 	public void setPostcode(String postcode) {
-		Postcode = postcode;
+		this.postcode = postcode;
 	}
 
-	public int getCompanyId() {
-		return CompanyId;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCompanyId(int companyId) {
-		CompanyId = companyId;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
-
 }
