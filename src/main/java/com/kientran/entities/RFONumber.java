@@ -2,15 +2,24 @@ package com.kientran.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
 @Table(name = "rfo_number")
@@ -23,10 +32,13 @@ public class RFONumber implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "rfo_number")
-	private Long rfoNumber;
+	@Column(name = "rfo_number_id")
+	private Long rfoNumberId;
 
-	@Column(name = "rfoName")
+	@Column(name = "rfo_number", nullable = false, unique = true)
+	private String rfoNumber;
+
+	@Column(name = "rfo_name")
 	private String rfoName;
 
 	@Column(name = "postcode")
@@ -35,13 +47,17 @@ public class RFONumber implements Serializable {
 	@Column(name = "created_by")
 	private String createdBy;
 
-	@Column(name = "created_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
+	@Column(name = "created_date", nullable = false, columnDefinition = "timestamp default 0")
 	private Date createdDate;
 
-	@Column(name = "updated_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
+	@Column(name = "updated_date", nullable = false, columnDefinition = "timestamp default 0 on update current_timestamp")
 	private Date updatedDate;
 
-	@Column(name = "created_by")
+	@Column(name = "updated_by")
 	private String updatedBy;
 
 	@ManyToOne
@@ -49,18 +65,38 @@ public class RFONumber implements Serializable {
 	private CustomerType customerType;
 
 	@ManyToOne
+	@JoinColumn(name = "region_type_id", referencedColumnName = "region_type_id")
+	private RegionType regionType;
+
+	@ManyToOne
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
 	private Company company;
+
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "rfoNumberSet")
+	private Set<Agreement> agreementSet = new HashSet<>();
 
 	public RFONumber() {
 		super();
 	}
 
-	public Long getRfoNumber() {
+	public RFONumber(Long rfoNumberId) {
+		super();
+		this.rfoNumberId = rfoNumberId;
+	}
+
+	public Long getRfoNumberId() {
+		return rfoNumberId;
+	}
+
+	public void setRfoNumberId(Long rfoNumberId) {
+		this.rfoNumberId = rfoNumberId;
+	}
+
+	public String getRfoNumber() {
 		return rfoNumber;
 	}
 
-	public void setRfoNumber(Long rfoNumber) {
+	public void setRfoNumber(String rfoNumber) {
 		this.rfoNumber = rfoNumber;
 	}
 
@@ -120,12 +156,53 @@ public class RFONumber implements Serializable {
 		this.customerType = customerType;
 	}
 
+	public RegionType getRegionType() {
+		return regionType;
+	}
+
+	public void setRegionType(RegionType regionType) {
+		this.regionType = regionType;
+	}
+
 	public Company getCompany() {
 		return company;
 	}
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Set<Agreement> getAgreementSet() {
+		return agreementSet;
+	}
+
+	public void setAgreementSet(Set<Agreement> agreementSet) {
+		this.agreementSet = agreementSet;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((rfoNumberId == null) ? 0 : rfoNumberId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RFONumber other = (RFONumber) obj;
+		if (rfoNumberId == null) {
+			if (other.rfoNumberId != null)
+				return false;
+		} else if (!rfoNumberId.equals(other.rfoNumberId))
+			return false;
+		return true;
 	}
 
 }

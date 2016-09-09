@@ -13,6 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
 @Table(name = "company")
@@ -54,20 +59,32 @@ public class Company implements Serializable {
 	@Column(name = "business_area")
 	private String businessArea;
 
-	@Column(name = "created_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
+	@Column(name = "created_date", nullable = false, columnDefinition = "timestamp default 0")
 	private Date createdDate;
 
 	@Column(name = "created_by")
 	private String createdBy;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
+	@Column(name = "last_updated_date", nullable = false, columnDefinition = "timestamp default 0 on update current_timestamp")
+	private Date lastUpdatedDate;
+
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	private List<Address> addressList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-	private List<Long> rfoNumberList = new ArrayList<>();
+	private List<RFONumber> rfoNumberList = new ArrayList<>();
 
 	public Company() {
 		super();
+	}
+
+	public Company(Long companyId) {
+		super();
+		this.companyId = companyId;
 	}
 
 	public Long getCompanyId() {
@@ -150,11 +167,11 @@ public class Company implements Serializable {
 		this.amisCode = amisCode;
 	}
 
-	public List<Long> getRfoNumberList() {
+	public List<RFONumber> getRfoNumberList() {
 		return rfoNumberList;
 	}
 
-	public void setRfoNumberList(List<Long> rfoNumberList) {
+	public void setRfoNumberList(List<RFONumber> rfoNumberList) {
 		this.rfoNumberList = rfoNumberList;
 	}
 
@@ -180,6 +197,39 @@ public class Company implements Serializable {
 
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
+	}
+
+	public Date getLastUpdatedDate() {
+		return lastUpdatedDate;
+	}
+
+	public void setLastUpdatedDate(Date lastUpdatedDate) {
+		this.lastUpdatedDate = lastUpdatedDate;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		if (companyId == null) {
+			if (other.companyId != null)
+				return false;
+		} else if (!companyId.equals(other.companyId))
+			return false;
+		return true;
 	}
 
 }

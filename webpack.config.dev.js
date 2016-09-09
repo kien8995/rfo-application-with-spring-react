@@ -1,4 +1,5 @@
 import webpack from "webpack";
+import DashboardPlugin from "webpack-dashboard/plugin";
 import {SRC, DEST} from "./tools/constant";
 
 export default {
@@ -25,6 +26,7 @@ export default {
     port: 3000
   },
   plugins: [
+    new DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],

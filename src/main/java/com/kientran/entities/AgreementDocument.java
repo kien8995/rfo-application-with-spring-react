@@ -1,115 +1,183 @@
 package com.kientran.entities;
 
-public class AgreementDocument {
-	private int DocumentId, AgreementNumber, VariantNumber, FundingMethodId, RFONumber;
-	private String FileLocation, FileName, Size, FileType, Status, CreatedDateTime;
+import java.io.Serializable;
+import java.util.Date;
 
-	public AgreementDocument(int documentId, int agreementNumber, int variantNumber, int fundingMethodId, int rFONumber,
-			String fileLocation, String fileName, String size, String fileType, String status, String createdDateTime) {
-		super();
-		DocumentId = documentId;
-		AgreementNumber = agreementNumber;
-		VariantNumber = variantNumber;
-		FundingMethodId = fundingMethodId;
-		RFONumber = rFONumber;
-		FileLocation = fileLocation;
-		FileName = fileName;
-		Size = size;
-		FileType = fileType;
-		Status = status;
-		CreatedDateTime = createdDateTime;
-	}
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.kientran.entities.adaptors.DateTimeAdaptor;
+
+@Entity
+@Table(name = "agreement_document")
+public class AgreementDocument implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "agreement_document_id")
+	private Long agreementDocumentId;
+
+	@Column(name = "file_location")
+	private String fileLocation;
+
+	@Column(name = "file_name")
+	private String fileName;
+
+	@Column(name = "size")
+	private String size;
+
+	@Column(name = "file_type")
+	private String fileType;
+
+	@Column(name = "status")
+	private String status;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
+	@Column(name = "created_date_time", nullable = false, columnDefinition = "timestamp default 0")
+	private Date createdDateTime;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
+			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
+	private Agreement agreement;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "funding_method_id", referencedColumnName = "funding_method_id")
+	private FundingMethod fundingMethod;
+
+	@Transient
+	private RFONumber rfoNumber;
 
 	public AgreementDocument() {
 		super();
 	}
 
-	public int getDocumentId() {
-		return DocumentId;
+	public AgreementDocument(Long agreementDocumentId) {
+		super();
+		this.agreementDocumentId = agreementDocumentId;
 	}
 
-	public void setDocumentId(int documentId) {
-		DocumentId = documentId;
+	public Long getAgreementDocumentId() {
+		return agreementDocumentId;
 	}
 
-	public int getAgreementNumber() {
-		return AgreementNumber;
-	}
-
-	public void setAgreementNumber(int agreementNumber) {
-		AgreementNumber = agreementNumber;
-	}
-
-	public int getVariantNumber() {
-		return VariantNumber;
-	}
-
-	public void setVariantNumber(int variantNumber) {
-		VariantNumber = variantNumber;
-	}
-
-	public int getFundingMethodId() {
-		return FundingMethodId;
-	}
-
-	public void setFundingMethodId(int fundingMethodId) {
-		FundingMethodId = fundingMethodId;
-	}
-
-	public int getRFONumber() {
-		return RFONumber;
-	}
-
-	public void setRFONumber(int rFONumber) {
-		RFONumber = rFONumber;
+	public void setAgreementDocumentId(Long agreementDocumentId) {
+		this.agreementDocumentId = agreementDocumentId;
 	}
 
 	public String getFileLocation() {
-		return FileLocation;
+		return fileLocation;
 	}
 
 	public void setFileLocation(String fileLocation) {
-		FileLocation = fileLocation;
+		this.fileLocation = fileLocation;
 	}
 
 	public String getFileName() {
-		return FileName;
+		return fileName;
 	}
 
 	public void setFileName(String fileName) {
-		FileName = fileName;
+		this.fileName = fileName;
 	}
 
 	public String getSize() {
-		return Size;
+		return size;
 	}
 
 	public void setSize(String size) {
-		Size = size;
+		this.size = size;
 	}
 
 	public String getFileType() {
-		return FileType;
+		return fileType;
 	}
 
 	public void setFileType(String fileType) {
-		FileType = fileType;
+		this.fileType = fileType;
 	}
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
 
-	public String getCreatedDateTime() {
-		return CreatedDateTime;
+	public Date getCreatedDateTime() {
+		return createdDateTime;
 	}
 
-	public void setCreatedDateTime(String createdDateTime) {
-		CreatedDateTime = createdDateTime;
+	public void setCreatedDateTime(Date createdDateTime) {
+		this.createdDateTime = createdDateTime;
+	}
+
+	public Agreement getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(Agreement agreement) {
+		this.agreement = agreement;
+	}
+
+	public FundingMethod getFundingMethod() {
+		return fundingMethod;
+	}
+
+	public void setFundingMethod(FundingMethod fundingMethod) {
+		this.fundingMethod = fundingMethod;
+	}
+
+	public RFONumber getRfoNumber() {
+		return rfoNumber;
+	}
+
+	public void setRfoNumber(RFONumber rfoNumber) {
+		this.rfoNumber = rfoNumber;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agreementDocumentId == null) ? 0 : agreementDocumentId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AgreementDocument other = (AgreementDocument) obj;
+		if (agreementDocumentId == null) {
+			if (other.agreementDocumentId != null)
+				return false;
+		} else if (!agreementDocumentId.equals(other.agreementDocumentId))
+			return false;
+		return true;
 	}
 
 }
