@@ -17,7 +17,7 @@
     "build": "babel-node tools/build.js",
     "postbuild": "babel-node tools/distServer.js"
   },
-  "author": "kientran",
+  "author": "TEAM 3",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.13.1",
@@ -96,6 +96,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kien8995/springboot-react"
+    "url": "https://github.com/kien8995/rfo-application-with-spring-react"
   }
 }

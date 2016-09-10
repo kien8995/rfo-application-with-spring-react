@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as customerActions from "../../../actions/customerActions";
 import * as dealerActions from "../../../actions/dealerActions";
+import * as agreementActions from "../../../actions/agreementActions";
 
 import {
     Step,
@@ -214,6 +215,55 @@ class AddNewAgreement extends Component {
         const contentStyle = { margin: "0 16px", overflow: "hidden" };
 
         if (finished) {
+            let date = new Date();
+
+            this.props.agreementActions.addAgreement({
+                agreementPK: {
+                    agreementNumber: Number("" + date.getSeconds() + date.getMilliseconds()),
+                    variantNumber: 1
+                },
+                name: this.state.basics.agreementName,
+                description: this.state.basics.agreementDescription,
+                startDate: this.state.basics.startDate,
+                endDate: this.state.basics.endDate,
+                paymentTo: this.state.basics.paymentTo,
+                handlingChange: this.state.basics.handlingChange,
+                signRequired: this.state.basics.signedAgreement,
+                dealerVisibility: this.state.basics.dealersVisibility,
+                combinability: this.state.basics.combinability,
+                numberOfRegistrations: 1,
+                discountUnit: this.state.basics.discountUnit,
+                agreementStatus: {
+                    agreementStatusId: 2
+                },
+                fundingMethod: {
+                    fundingMethodId: 1
+                },
+                rfoNumberSet: [
+                    {
+                        rfoNumber: this.state.customer.rfoNumber,
+                        rfoName: this.state.customer.name
+                    }
+                ],
+                commentList: [
+                    {
+                        comment: this.state.miscText.comments
+                    }
+                ],
+                creaditNoteTextList: [
+                    {
+                        creditNoteText: this.state.miscText.supportJustification
+                    }
+                ],
+                volume: {
+                    bandingList: [
+                        {
+                            min: 1,
+                            max: 10
+                        }
+                    ]
+                }
+            });
             return (
                 <div style={contentStyle}>
                     <p>
@@ -302,7 +352,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         customerActions: bindActionCreators(customerActions, dispatch),
-        dealerActions: bindActionCreators(dealerActions, dispatch)
+        dealerActions: bindActionCreators(dealerActions, dispatch),
+        agreementActions: bindActionCreators(agreementActions, dispatch)
     };
 }
 

@@ -1,4 +1,5 @@
 export default {
     customers: [],
-    dealers: []
+    dealers: [],
+    agreements: []
 };

@@ -26,7 +26,7 @@ export default {
     port: 3000
   },
   plugins: [
-    new DashboardPlugin(),
+    //new DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
