@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -130,7 +131,7 @@ public class Agreement implements Serializable {
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
 	private List<Comment> commentList = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "agreement_rfo", joinColumns = { @JoinColumn(name = "agreement_number"),
 			@JoinColumn(name = "variant_number") }, inverseJoinColumns = @JoinColumn(name = "rfo_number"))
 	private Set<RFONumber> rfoNumberSet = new HashSet<>();

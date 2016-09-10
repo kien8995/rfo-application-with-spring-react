@@ -100,6 +100,10 @@ public class Application implements CommandLineRunner {
 		// agreement.setHandlingChange("100");
 		// agreement.setFundingMethod(new FundingMethod(1L));
 		//
+		// Set<RFONumber> rfoNumberSet = new HashSet<>();
+		// rfoNumberSet.add(rfoNumberRepository.findByRfoNumber("S00431"));
+		// agreement.setRfoNumberSet(rfoNumberSet);
+		//
 		// Comment comment = new Comment();
 		// comment.setAgreement(agreement);
 		// comment.setComment("Comment");

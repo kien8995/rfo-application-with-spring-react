@@ -11,4 +11,5 @@ import com.kientran.entities.RFONumber;
 @Repository
 public interface RFONumberRepository extends CrudRepository<RFONumber, Long> {
 
+	public RFONumber findByRfoNumber(String rfoNumber);
 }

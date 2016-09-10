@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,16 +72,16 @@ public class RFONumber implements Serializable {
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
 	private Company company;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "rfoNumberSet")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rfoNumberSet")
 	private Set<Agreement> agreementSet = new HashSet<>();
 
 	public RFONumber() {
 		super();
 	}
 
-	public RFONumber(Long rfoNumberId) {
+	public RFONumber(String rfoNumber) {
 		super();
-		this.rfoNumberId = rfoNumberId;
+		this.rfoNumber = rfoNumber;
 	}
 
 	public Long getRfoNumberId() {
@@ -184,7 +184,7 @@ public class RFONumber implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((rfoNumberId == null) ? 0 : rfoNumberId.hashCode());
+		result = prime * result + ((rfoNumber == null) ? 0 : rfoNumber.hashCode());
 		return result;
 	}
 
@@ -197,10 +197,10 @@ public class RFONumber implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RFONumber other = (RFONumber) obj;
-		if (rfoNumberId == null) {
-			if (other.rfoNumberId != null)
+		if (rfoNumber == null) {
+			if (other.rfoNumber != null)
 				return false;
-		} else if (!rfoNumberId.equals(other.rfoNumberId))
+		} else if (!rfoNumber.equals(other.rfoNumber))
 			return false;
 		return true;
 	}
