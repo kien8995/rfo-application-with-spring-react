@@ -1,5 +1,7 @@
 package com.kientran.resources;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,15 @@ public class AgreementResource {
 	@Inject
 	private AgreementRepository agreementRepository;
 
+	@RequestMapping(path = "/agreements", method = RequestMethod.GET)
+	public ResponseEntity<List<Agreement>> getAll() {
+		List<Agreement> result = agreementRepository.findAll();
+		return new ResponseEntity<List<Agreement>>(result, HttpStatus.OK);
+	}
+
 	@RequestMapping(path = "/agreements", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody Agreement agreement) {
+	public ResponseEntity<Agreement> add(@RequestBody Agreement agreement) {
 		Agreement result = agreementRepository.save(agreement);
-		return new ResponseEntity<>(result, HttpStatus.CREATED);
+		return new ResponseEntity<Agreement>(result, HttpStatus.CREATED);
 	}
 }

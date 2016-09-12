@@ -38,7 +38,7 @@ const Volume = ({
         <div>
             <VolumeForm
                 rfoNumber={customer.rfoNumber}
-                customerName={customer.name}
+                customerName={customer.rfoName}
                 bandingValueFrom={volume.bandingValueFrom}
                 bandingValueTo={volume.bandingValueTo}
                 onTextChange={onTextChange}

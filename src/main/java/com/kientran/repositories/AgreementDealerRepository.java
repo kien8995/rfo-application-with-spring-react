@@ -2,13 +2,13 @@ package com.kientran.repositories;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.kientran.entities.AgreementDealer;
 
 @Transactional
 @Repository
-public interface AgreementDealerRepository extends CrudRepository<AgreementDealer, Long> {
+public interface AgreementDealerRepository extends JpaRepository<AgreementDealer, Long> {
 
 }

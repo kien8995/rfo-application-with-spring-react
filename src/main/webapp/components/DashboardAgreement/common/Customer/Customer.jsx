@@ -6,11 +6,10 @@ import {CustomerTable} from "./CustomerTable";
 const Customer = ({
     customer,
     customers,
-    actions,
     onCustomerChange
 }) => {
-    
-    if (customers.length > 0 && (customer.customerList.length !== customers.length)) {
+
+    if (customers.length > 0 && customer.customerList.length === 0) {
         customer.customerList = customers.map(customer => {
             return Object.assign({}, customer);
         });
@@ -24,22 +23,30 @@ const Customer = ({
     };
 
     let onCustomerTypeChange = (event, index, value) => {
-
         onCustomerChange({ customerType: value });
     };
 
     let onBusinessAreaChange = (event, index, value) => {
-
         onCustomerChange({ businessArea: value });
     };
 
     let onRegionChange = (event, index, value) => {
-
         onCustomerChange({ region: value });
     };
 
     let onButtonSearchClick = () => {
-        actions.findCustomers(customer);
+        let list = customers.filter((c) => {
+            return (
+                (customer.rfoNumber === "" || c.rfoNumber.indexOf(customer.rfoNumber) !== -1) &&
+                (customer.rfoName === "" || c.rfoName.indexOf(customer.rfoName) !== -1) &&
+                (customer.postcode === "" || c.postcode.indexOf(customer.postcode) !== -1) &&
+                (customer.customerType === "" || c.customerType.customerType.indexOf(customer.customerType) !== -1) &&
+                (customer.businessArea === "" || c.company.businessArea.indexOf(customer.businessArea) !== -1) &&
+                (customer.region === "" || c.regionType.regionType.indexOf(customer.region) !== -1)
+            );
+        });
+
+        onCustomerChange({ customerList: list });
     };
 
     let onRowSelected = (key) => {
@@ -59,7 +66,7 @@ const Customer = ({
         <div>
             <CustomerForm
                 rfoNumber={customer.rfoNumber}
-                name={customer.name}
+                rfoName={customer.rfoName}
                 postcode={customer.postcode}
                 customerType={customer.customerType}
                 businessArea={customer.businessArea}
@@ -80,7 +87,6 @@ const Customer = ({
 Customer.propTypes = {
     customer: PropTypes.object.isRequired,
     customers: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired,
     onCustomerChange: PropTypes.func.isRequired
 };
 

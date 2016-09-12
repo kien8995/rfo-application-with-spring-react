@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -71,6 +72,7 @@ public class Address implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
+	@JsonManagedReference
 	private Company company;
 
 	public Address() {

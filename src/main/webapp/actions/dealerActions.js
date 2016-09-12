@@ -1,5 +1,5 @@
 import * as types from "./actionTypes";
-import DealerApi from "../mockApi/dealerApi";
+import DealerApi from "../api/dealerApi";
 
 export function loadDealersSuccess(dealers) {
     return {
@@ -14,10 +14,10 @@ export function loadDealersError() {
     };
 }
 
-export function loadDealers() {
+export function loadAllDealers() {
     return function (dispatch) {
         return DealerApi.loadAllDealers().then(dealers => {
-            dispatch(loadDealersSuccess(dealers));
+            dispatch(loadDealersSuccess(JSON.parse(JSON.stringify(dealers.data))));
         }).catch(e => {
             throw (e);
         });

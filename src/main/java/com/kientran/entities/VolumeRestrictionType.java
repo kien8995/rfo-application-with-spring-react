@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -47,6 +48,7 @@ public class VolumeRestrictionType implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "volumeRestrictionType", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Volume> volumeList = new ArrayList<>();
 
 	public VolumeRestrictionType() {

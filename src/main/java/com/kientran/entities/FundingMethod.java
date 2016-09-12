@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -71,9 +72,11 @@ public class FundingMethod implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "fundingMethod", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-funding")
 	private List<Agreement> agreementList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "fundingMethod", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<AgreementDocument> agreementDocumentList = new ArrayList<>();
 
 	public FundingMethod() {

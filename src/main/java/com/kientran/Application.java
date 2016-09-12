@@ -7,11 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.kientran.repositories.AgreementRepository;
-import com.kientran.repositories.CompanyRepository;
-import com.kientran.repositories.CustomerTypeRepository;
-import com.kientran.repositories.FundingMethodRepository;
 import com.kientran.repositories.RFONumberRepository;
-import com.kientran.repositories.RegionTypeRepository;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -21,22 +17,10 @@ public class Application implements CommandLineRunner {
 	}
 
 	@Inject
-	private FundingMethodRepository fundingMethodRepository;
-
-	@Inject
-	private CompanyRepository companyRepositoty;
-
-	@Inject
-	private CustomerTypeRepository customerTypeRepository;
-
-	@Inject
-	private RegionTypeRepository regionTypeRepository;
+	private AgreementRepository agreementRepository;
 
 	@Inject
 	private RFONumberRepository rfoNumberRepository;
-
-	@Inject
-	private AgreementRepository agreementRepository;
 
 	@Override
 	public void run(String... strings) throws Exception {
@@ -103,6 +87,14 @@ public class Application implements CommandLineRunner {
 		// Set<RFONumber> rfoNumberSet = new HashSet<>();
 		// rfoNumberSet.add(rfoNumberRepository.findByRfoNumber("S00431"));
 		// agreement.setRfoNumberSet(rfoNumberSet);
+		//
+		// AgreementDealer agreementDealer = new AgreementDealer();
+		// agreementDealer.setDealerCode("WES418");
+		// agreementDealer.setDealerName("Westgate Honda");
+		// agreementDealer.setDealerTown("Grimsby");
+		// agreementDealer.setDealerCountry("North East");
+		// agreementDealer.setAgreement(agreement);
+		// agreement.getAgreementDealerList().add(agreementDealer);
 		//
 		// Comment comment = new Comment();
 		// comment.setAgreement(agreement);

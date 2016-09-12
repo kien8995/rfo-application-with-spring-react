@@ -58,7 +58,7 @@ const Basics = ({
         <div>
             <BasicsForm
                 rfoNumber={customer.rfoNumber}
-                customerName={customer.name}
+                customerName={customer.rfoName}
                 agreementName={basics.agreementName}
                 agreementDescription={basics.agreementDescription}
                 startDate={basics.startDate}

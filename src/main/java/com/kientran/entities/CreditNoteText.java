@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -54,6 +55,7 @@ public class CreditNoteText implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
 			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
+	@JsonManagedReference(value = "agreement-note")
 	private Agreement agreement;
 
 	public CreditNoteText() {

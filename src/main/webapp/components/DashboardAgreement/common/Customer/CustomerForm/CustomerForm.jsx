@@ -24,7 +24,7 @@ const regions = [
 
 const CustomerForm = ({
     rfoNumber,
-    name,
+    rfoName,
     postcode,
     customerType,
     businessArea,
@@ -60,8 +60,8 @@ const CustomerForm = ({
             <Row middle="md">
                 <Col md={2}>Name</Col>
                 <Col md={4}><TextField
-                    name="name"
-                    value={name}
+                    name="rfoName"
+                    value={rfoName}
                     onChange={onTextChange}
                     hintText="Ex: Bank of England"
                     floatingLabelText="Name"
@@ -110,7 +110,7 @@ const CustomerForm = ({
 
 CustomerForm.propTypes = {
     rfoNumber: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    rfoName: PropTypes.string.isRequired,
     postcode: PropTypes.string.isRequired,
     customerType: PropTypes.string.isRequired,
     businessArea: PropTypes.string.isRequired,
@@ -124,7 +124,7 @@ CustomerForm.propTypes = {
 
 CustomerForm.defaultProps = {
     rfoNumber: "",
-    name: "",
+    rfoName: "",
     postcode: "",
     customerType: "",
     businessArea: "",

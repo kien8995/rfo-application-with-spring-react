@@ -6,7 +6,7 @@ const ConfirmationForm = ({
     basics
 }) => {
     let rfoNumber = customer.rfoNumber;
-    let customerName = customer.name;
+    let customerName = customer.rfoName;
     let startEnd = `${basics.startDate} - ${basics.endDate}`;
     let status = basics.status;
     return (

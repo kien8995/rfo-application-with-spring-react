@@ -48,13 +48,13 @@ const CustomerTable = ({
                 stripedRows={false}
                 >
                 {tableData.map((row, index) => (
-                    <TableRow key={row.id} value={row} selected={row.selected}>
+                    <TableRow key={row.rfoNumberId} value={row} selected={row.selected}>
                         <TableRowColumn>{row.rfoNumber}</TableRowColumn>
-                        <TableRowColumn>{row.name}</TableRowColumn>
-                        <TableRowColumn>{row.customerType}</TableRowColumn>
+                        <TableRowColumn>{row.rfoName}</TableRowColumn>
+                        <TableRowColumn>{row.customerType.customerType}</TableRowColumn>
                         <TableRowColumn>{row.postcode}</TableRowColumn>
-                        <TableRowColumn>{row.businessArea}</TableRowColumn>
-                        <TableRowColumn>{row.region}</TableRowColumn>
+                        <TableRowColumn>{row.company.businessArea}</TableRowColumn>
+                        <TableRowColumn>{row.regionType.regionType}</TableRowColumn>
                     </TableRow>
                 )) }
             </TableBody>

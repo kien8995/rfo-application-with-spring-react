@@ -34,7 +34,7 @@ class AddNewAgreement extends Component {
             stepIndex: 0,
             customer: {
                 rfoNumber: "",
-                name: "",
+                rfoName: "",
                 postcode: "",
                 customerType: "",
                 businessArea: "",
@@ -100,7 +100,8 @@ class AddNewAgreement extends Component {
     }
 
     componentDidMount() {
-        this.props.dealerActions.loadDealers();
+        this.props.customerActions.loadAllCustomers();
+        this.props.dealerActions.loadAllDealers();
     }
 
     onCustomerChange(value) {
@@ -163,7 +164,6 @@ class AddNewAgreement extends Component {
                     <Customer
                         customer={this.state.customer}
                         customers={this.props.customers}
-                        actions={this.props.customerActions}
                         onCustomerChange={this.onCustomerChange} />
                 );
             case 1:
@@ -216,8 +216,7 @@ class AddNewAgreement extends Component {
 
         if (finished) {
             let date = new Date();
-
-            this.props.agreementActions.addAgreement({
+            let object = {
                 agreementPK: {
                     agreementNumber: Number("" + date.getSeconds() + date.getMilliseconds()),
                     variantNumber: 1
@@ -227,12 +226,18 @@ class AddNewAgreement extends Component {
                 startDate: this.state.basics.startDate,
                 endDate: this.state.basics.endDate,
                 paymentTo: this.state.basics.paymentTo,
+                amisAccountCode: null,
                 handlingChange: this.state.basics.handlingChange,
                 signRequired: this.state.basics.signedAgreement,
+                signReceived: null,
+                signReceivedDate: null,
                 dealerVisibility: this.state.basics.dealersVisibility,
                 combinability: this.state.basics.combinability,
                 numberOfRegistrations: 1,
                 discountUnit: this.state.basics.discountUnit,
+                authorisedBy: null,
+                createdBy: null,
+                lastUpdatedBy: null,
                 agreementStatus: {
                     agreementStatusId: 2
                 },
@@ -241,8 +246,41 @@ class AddNewAgreement extends Component {
                 },
                 rfoNumberSet: [
                     {
-                        rfoNumber: this.state.customer.rfoNumber,
-                        rfoName: this.state.customer.name
+                        rfoNumberId: this.state.customer.selectedRow.rfoNumberId,
+                        rfoNumber: this.state.customer.selectedRow.rfoNumber,
+                        rfoName: this.state.customer.selectedRow.rfoName,
+                        postcode: this.state.customer.selectedRow.postcode,
+                        createdBy: null,
+                        updatedBy: null,
+                        createdDate: this.state.customer.selectedRow.createdDate,
+                        updatedDate: this.state.customer.selectedRow.updatedDate,
+                        customerType: {
+                            customerTypeId: this.state.customer.selectedRow.customerType.customerTypeId,
+                            customerType: this.state.customer.selectedRow.customerType.customerType,
+                            createdDate: this.state.customer.selectedRow.customerType.createdDate,
+                            lastUpdatedDate: this.state.customer.selectedRow.customerType.lastUpdatedDate
+                        },
+                        regionType: {
+                            regionTypeId: this.state.customer.selectedRow.regionType.regionTypeId,
+                            regionType: this.state.customer.selectedRow.regionType.regionType,
+                            createdDate: this.state.customer.selectedRow.regionType.createdDate,
+                            lastUpdatedDate: this.state.customer.selectedRow.regionType.lastUpdatedDate
+                        },
+                        company: {
+                            companyId: this.state.customer.selectedRow.company.companyId,
+                            name: this.state.customer.selectedRow.company.name,
+                            type: this.state.customer.selectedRow.company.type,
+                            status: this.state.customer.selectedRow.company.status,
+                            sector: this.state.customer.selectedRow.company.sector,
+                            phoneNumber: this.state.customer.selectedRow.company.phoneNumber,
+                            faxNumber: this.state.customer.selectedRow.company.faxNumber,
+                            emailAddress: this.state.customer.selectedRow.company.emailAddress,
+                            amisCode: this.state.customer.selectedRow.company.amisCode,
+                            businessArea: this.state.customer.selectedRow.company.businessArea,
+                            createdBy: null,
+                            createdDate: this.state.customer.selectedRow.company.createdDate,
+                            lastUpdatedDate: this.state.customer.selectedRow.company.lastUpdatedDate
+                        }
                     }
                 ],
                 commentList: [
@@ -263,7 +301,8 @@ class AddNewAgreement extends Component {
                         }
                     ]
                 }
-            });
+            };
+            this.props.agreementActions.addAgreement(object);
             return (
                 <div style={contentStyle}>
                     <p>

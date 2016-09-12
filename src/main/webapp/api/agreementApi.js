@@ -9,7 +9,7 @@ class AgreementApi {
                 timeout: 20000,
                 method: "post",
                 responseType: "json",
-                data: JSON.stringify(agreement)
+                data: JSON.parse(JSON.stringify(agreement)),
             }
         );
     }

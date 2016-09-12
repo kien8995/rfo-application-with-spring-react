@@ -2,64 +2,64 @@ import delay from "./delay";
 
 const dealers = [
     {
-        code: "WES489",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES489",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES410",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES410",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES411",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES411",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES412",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES412",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES413",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES413",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES414",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES414",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES415",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES415",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES416",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES416",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES417",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES417",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
     {
-        code: "WES418",
-        name: "Westgate Honda",
-        town: "Grimsby",
-        country: "North East"
+        dealerCode: "WES418",
+        dealerName: "Westgate Honda",
+        dealerTown: "Grimsby",
+        dealerCountry: "North East"
     },
 ];
 

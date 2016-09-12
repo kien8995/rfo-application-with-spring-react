@@ -23,6 +23,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 import com.kientran.entities.pk.AgreementPK;
 
@@ -109,31 +111,39 @@ public class Agreement implements Serializable {
 	private String lastUpdatedBy;
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-dealer")
 	private List<AgreementDealer> agreementDealerList = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "funding_method_id", referencedColumnName = "funding_method_id")
+	@JsonManagedReference(value = "agreement-funding")
 	private FundingMethod fundingMethod;
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-note")
 	private List<CreditNoteText> creaditNoteTextList = new ArrayList<>();
 
 	@OneToOne(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-volume")
 	private Volume volume;
 
 	@ManyToOne
 	@JoinColumn(name = "agreement_status_id", referencedColumnName = "agreement_status_id")
+	@JsonManagedReference(value = "agreement-status")
 	private AgreementStatus agreementStatus;
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-document")
 	private List<AgreementDocument> agreementDocumentList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonBackReference(value = "agreement-comment")
 	private List<Comment> commentList = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "agreement_rfo", joinColumns = { @JoinColumn(name = "agreement_number"),
 			@JoinColumn(name = "variant_number") }, inverseJoinColumns = @JoinColumn(name = "rfo_number"))
+	@JsonManagedReference(value = "agreement-rfo")
 	private Set<RFONumber> rfoNumberSet = new HashSet<>();
 
 	public Agreement() {

@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -36,6 +37,15 @@ public class AgreementDealer implements Serializable {
 	@Column(name = "dealer_code")
 	private String dealerCode;
 
+	@Column(name = "dealer_name")
+	private String dealerName;
+
+	@Column(name = "dealer_town")
+	private String dealerTown;
+
+	@Column(name = "dealer_country")
+	private String dealerCountry;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlJavaTypeAdapter(DateTimeAdaptor.class)
 	@Column(name = "created_date", nullable = false, columnDefinition = "timestamp default 0")
@@ -49,6 +59,7 @@ public class AgreementDealer implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
 			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
+	@JsonManagedReference(value = "agreement-dealer")
 	private Agreement agreement;
 
 	public AgreementDealer() {
@@ -74,6 +85,30 @@ public class AgreementDealer implements Serializable {
 
 	public void setDealerCode(String dealerCode) {
 		this.dealerCode = dealerCode;
+	}
+
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
+
+	public String getDealerTown() {
+		return dealerTown;
+	}
+
+	public void setDealerTown(String dealerTown) {
+		this.dealerTown = dealerTown;
+	}
+
+	public String getDealerCountry() {
+		return dealerCountry;
+	}
+
+	public void setDealerCountry(String dealerCountry) {
+		this.dealerCountry = dealerCountry;
 	}
 
 	public Agreement getAgreement() {

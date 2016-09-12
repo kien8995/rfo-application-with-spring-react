@@ -49,11 +49,11 @@ const DealerTable = ({
                     stripedRows={false}
                     >
                     {dealers.map((row, index) => (
-                        <TableRow key={row.code} value={row} selected={row.selected}>
-                            <TableRowColumn>{row.code}</TableRowColumn>
-                            <TableRowColumn>{row.name}</TableRowColumn>
-                            <TableRowColumn>{row.town}</TableRowColumn>
-                            <TableRowColumn>{row.country}</TableRowColumn>
+                        <TableRow key={row.dealerCode} value={row} selected={row.selected}>
+                            <TableRowColumn>{row.dealerCode}</TableRowColumn>
+                            <TableRowColumn>{row.dealerName}</TableRowColumn>
+                            <TableRowColumn>{row.dealerTown}</TableRowColumn>
+                            <TableRowColumn>{row.dealerCountry}</TableRowColumn>
                         </TableRow>
                     )) }
                 </TableBody>
@@ -100,11 +100,11 @@ const DealerTable = ({
                     stripedRows={false}
                     >
                     {applicableDealers.map((row, index) => (
-                        <TableRow key={row.code} value={row} selected={row.selected}>
-                            <TableRowColumn>{row.code}</TableRowColumn>
-                            <TableRowColumn>{row.name}</TableRowColumn>
-                            <TableRowColumn>{row.town}</TableRowColumn>
-                            <TableRowColumn>{row.country}</TableRowColumn>
+                        <TableRow key={row.dealerCode} value={row} selected={row.selected}>
+                            <TableRowColumn>{row.dealerCode}</TableRowColumn>
+                            <TableRowColumn>{row.dealerName}</TableRowColumn>
+                            <TableRowColumn>{row.dealerTown}</TableRowColumn>
+                            <TableRowColumn>{row.dealerCountry}</TableRowColumn>
                         </TableRow>
                     )) }
                 </TableBody>

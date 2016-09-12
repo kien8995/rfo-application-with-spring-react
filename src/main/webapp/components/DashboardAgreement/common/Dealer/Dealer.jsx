@@ -45,8 +45,8 @@ const Dealer = ({
 
         let list = dealers.filter((d) => {
             return (
-                (dealer.dealerCode === "" || d.code.indexOf(dealer.dealerCode) !== -1) &&
-                (dealer.dealerName === "" || d.name.indexOf(dealer.dealerName) !== -1)
+                (dealer.dealerCode === "" || d.dealerCode.indexOf(dealer.dealerCode) !== -1) &&
+                (dealer.dealerName === "" || d.dealerName.indexOf(dealer.dealerName) !== -1)
             );
         });
         
