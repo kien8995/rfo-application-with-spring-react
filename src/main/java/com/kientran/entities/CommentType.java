@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -48,7 +48,7 @@ public class CommentType implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "commentType", cascade = CascadeType.ALL)
-	@JsonIgnore
+	@JsonManagedReference(value = "commentType-comment")
 	private List<Comment> commentList = new ArrayList<>();
 
 	public CommentType() {

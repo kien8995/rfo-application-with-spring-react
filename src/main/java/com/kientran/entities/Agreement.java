@@ -23,9 +23,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 import com.kientran.entities.pk.AgreementPK;
@@ -114,7 +114,7 @@ public class Agreement implements Serializable {
 	private String lastUpdatedBy;
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
-	@JsonBackReference(value = "agreement-dealer")
+	@JsonManagedReference(value = "agreement-dealer")
 	private List<AgreementDealer> agreementDealerList = new ArrayList<>();
 
 	@ManyToOne
@@ -122,9 +122,11 @@ public class Agreement implements Serializable {
 	private FundingMethod fundingMethod;
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "agreement-creaditNoteText")
 	private List<CreditNoteText> creaditNoteTextList = new ArrayList<>();
 
 	@OneToOne(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "agreement-volume")
 	private Volume volume;
 
 	@ManyToOne
@@ -136,6 +138,7 @@ public class Agreement implements Serializable {
 	private List<AgreementDocument> agreementDocumentList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "agreement", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "agreement-comment")
 	private List<Comment> commentList = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -76,6 +77,7 @@ public class FundingMethod implements Serializable {
 	private List<Agreement> agreementList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "fundingMethod", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "fundingMethod-agreementDocument")
 	private List<AgreementDocument> agreementDocumentList = new ArrayList<>();
 
 	public FundingMethod() {

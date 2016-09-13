@@ -21,7 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -56,14 +57,16 @@ public class Volume implements Serializable {
 	@OneToOne
 	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
 			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
-	@JsonIgnore
+	@JsonBackReference(value = "agreement-volume")
 	private Agreement agreement;
 
 	@OneToMany(mappedBy = "volume", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "volume-banding")
 	private List<Banding> bandingList = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "volume_restriction_type_id", referencedColumnName = "volume_restriction_type_id")
+	@JsonBackReference(value = "volumeRestrictionType-volume")
 	private VolumeRestrictionType volumeRestrictionType;
 
 	public Volume() {

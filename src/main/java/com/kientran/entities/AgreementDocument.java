@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
@@ -63,7 +64,7 @@ public class AgreementDocument implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "funding_method_id", referencedColumnName = "funding_method_id")
-	@JsonIgnore
+	@JsonBackReference(value = "fundingMethod-agreementDocument")
 	private FundingMethod fundingMethod;
 
 	@Transient

@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -59,7 +59,7 @@ public class AgreementDealer implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
 			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
-	@JsonIgnore
+	@JsonBackReference(value = "agreement-dealer")
 	private Agreement agreement;
 
 	public AgreementDealer() {

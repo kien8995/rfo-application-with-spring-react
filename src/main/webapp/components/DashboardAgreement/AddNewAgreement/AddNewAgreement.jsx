@@ -214,10 +214,24 @@ class AddNewAgreement extends Component {
         const {finished, stepIndex} = this.state;
         const contentStyle = { margin: "0 16px", overflow: "hidden" };
 
-console.log(this.state.customer.selectedRow);
         if (finished) {
-            
+
             let date = new Date();
+            let bandingListValue = this.state.volume.bandingTableData.map((banding, index) => {
+                let str = banding.split(" - ", 2);
+                return {
+                    min: str[0],
+                    max: str[1]
+                };
+            });
+            let agreementDealerList = this.state.dealer.applicableDealers.map((dealer, index) => {
+                return {
+                    dealerCode: dealer.dealerCode,
+                    dealerName: dealer.dealerName,
+                    dealerTown: dealer.dealerTown,
+                    dealerCountry: dealer.dealerCountry
+                };
+            });
             let object = {
                 agreementPK: {
                     agreementNumber: Number("" + date.getSeconds() + date.getMilliseconds()),
@@ -295,14 +309,9 @@ console.log(this.state.customer.selectedRow);
                         creditNoteText: this.state.miscText.supportJustification
                     }
                 ],
+                agreementDealerList: agreementDealerList,
                 volume: {
-                    volumeId: 20,
-                    bandingList: [
-                        {
-                            min: 1,
-                            max: 10
-                        }
-                    ]
+                    bandingList: bandingListValue
                 }
             };
             this.props.agreementActions.addAgreement(object);
@@ -317,7 +326,7 @@ console.log(this.state.customer.selectedRow);
                             } }
                             >
                             Click here
-                        </a> to reset the example.
+                        </a> to add another agreement.
                     </p>
                 </div>
             );

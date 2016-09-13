@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -51,7 +51,7 @@ public class Banding implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "volume_id", referencedColumnName = "volume_id")
-	@JsonIgnore
+	@JsonBackReference(value = "volume-banding")
 	private Volume volume;
 
 	public Banding() {
