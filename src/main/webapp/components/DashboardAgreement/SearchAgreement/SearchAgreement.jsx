@@ -6,7 +6,7 @@ import {SearchTable} from "./SearchTable";
 
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-
+ 
 let tableData = [
     {
         id: 1,
