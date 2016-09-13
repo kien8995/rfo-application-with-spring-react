@@ -48,7 +48,7 @@ export default {
         loaders: [
             { test: /\.(js|jsx)$/, include: SRC, loaders: ["babel"], exclude: ["*.test.js"] },
             {
-                test: /(\.(min|global)\.css)$/,
+                test: /((\.(min|global)\.css) | (flexboxgrid\.css))$/,
                 loader: ExtractTextPlugin.extract("css-loader?sourceMap")
             },
             {
@@ -59,12 +59,6 @@ export default {
                     "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]",
                     "postcss-loader"
                 )
-            },
-            //react-flexbox-grid
-            {
-                test: /flexboxgrid\.css$/,
-                loader: ExtractTextPlugin.extract("css-loader?sourceMap"),
-                include: /node_modules/,
             },
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
             { test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000" },

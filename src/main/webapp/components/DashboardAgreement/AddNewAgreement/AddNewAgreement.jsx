@@ -100,8 +100,8 @@ class AddNewAgreement extends Component {
     }
 
     componentDidMount() {
-        this.props.customerActions.loadAllCustomers();
-        this.props.dealerActions.loadAllDealers();
+        // this.props.customerActions.loadAllCustomers();
+        // this.props.dealerActions.loadAllDealers();
     }
 
     onCustomerChange(value) {
