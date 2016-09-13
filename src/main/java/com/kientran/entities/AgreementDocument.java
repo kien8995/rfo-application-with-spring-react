@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -58,12 +58,12 @@ public class AgreementDocument implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "agreement_number", referencedColumnName = "agreement_number"),
 			@JoinColumn(name = "variant_number", referencedColumnName = "variant_number") })
-	@JsonManagedReference(value = "agreement-document")
+	@JsonIgnore
 	private Agreement agreement;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "funding_method_id", referencedColumnName = "funding_method_id")
-	@JsonManagedReference
+	@JsonIgnore
 	private FundingMethod fundingMethod;
 
 	@Transient

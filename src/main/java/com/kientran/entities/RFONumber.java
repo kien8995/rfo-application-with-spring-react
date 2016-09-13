@@ -19,8 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -64,21 +63,18 @@ public class RFONumber implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "customer_type_id", referencedColumnName = "customer_type_id")
-	@JsonManagedReference(value = "customer-rfo")
 	private CustomerType customerType;
 
 	@ManyToOne
 	@JoinColumn(name = "region_type_id", referencedColumnName = "region_type_id")
-	@JsonManagedReference(value = "region-rfo")
 	private RegionType regionType;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
-	@JsonManagedReference(value = "company-rfo")
 	private Company company;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rfoNumberSet")
-	@JsonBackReference(value = "agreement-rfo")
+	@JsonIgnore
 	private Set<Agreement> agreementSet = new HashSet<>();
 
 	public RFONumber() {

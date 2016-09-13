@@ -214,7 +214,9 @@ class AddNewAgreement extends Component {
         const {finished, stepIndex} = this.state;
         const contentStyle = { margin: "0 16px", overflow: "hidden" };
 
+console.log(this.state.customer.selectedRow);
         if (finished) {
+            
             let date = new Date();
             let object = {
                 agreementPK: {
@@ -294,6 +296,7 @@ class AddNewAgreement extends Component {
                     }
                 ],
                 volume: {
+                    volumeId: 20,
                     bandingList: [
                         {
                             min: 1,

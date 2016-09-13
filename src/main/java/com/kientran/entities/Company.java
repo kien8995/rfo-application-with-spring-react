@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -74,11 +74,10 @@ public class Company implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-	@JsonBackReference
 	private List<Address> addressList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-	@JsonBackReference(value = "company-rfo")
+	@JsonIgnore
 	private List<RFONumber> rfoNumberList = new ArrayList<>();
 
 	public Company() {

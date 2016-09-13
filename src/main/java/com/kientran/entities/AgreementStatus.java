@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -47,7 +47,7 @@ public class AgreementStatus implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "agreementStatus", cascade = CascadeType.ALL)
-	@JsonBackReference(value = "agreement-status")
+	@JsonIgnore
 	private List<Agreement> agreementList = new ArrayList<>();
 
 	public AgreementStatus() {

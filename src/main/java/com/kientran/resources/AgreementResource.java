@@ -28,7 +28,7 @@ public class AgreementResource {
 		return new ResponseEntity<List<Agreement>>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/agreements", method = RequestMethod.POST)
+	@RequestMapping(path = "/agreements", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Agreement> add(@RequestBody Agreement agreement) {
 		Agreement result = agreementRepository.save(agreement);
 		return new ResponseEntity<Agreement>(result, HttpStatus.CREATED);

@@ -18,7 +18,7 @@ export function addAgreement(agreement) {
     return function (dispatch) {
         return AgreementApi.addAgreement(agreement).then(agreement => {
             console.log(agreement);
-            dispatch(addAgreementSuccess(agreement));
+            dispatch(addAgreementSuccess(JSON.parse(JSON.stringify(agreement.data))));
         }).catch(e => {
             throw(e);
         });

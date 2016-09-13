@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kientran.entities.adaptors.DateTimeAdaptor;
 
 @Entity
@@ -48,7 +48,7 @@ public class RegionType implements Serializable {
 	private Date lastUpdatedDate;
 
 	@OneToMany(mappedBy = "regionType", cascade = CascadeType.ALL)
-	@JsonBackReference(value = "region-rfo")
+	@JsonIgnore
 	private List<RFONumber> rfoNumberList = new ArrayList<>();
 
 	public RegionType() {
