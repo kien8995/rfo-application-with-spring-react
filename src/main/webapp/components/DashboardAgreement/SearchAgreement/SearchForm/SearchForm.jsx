@@ -12,24 +12,49 @@ const items = [
 ];
 
 const SearchForm = ({
-    onTextChange,
     customerType,
-    onCustomerTypeChange,
     customerName,
     customerCode,
     postcode,
     csm,
-    onCSMChange,
     approver,
-    onApproverChange,
     status,
-    onStatusChange,
     startDate,
-    onStartDateChange,
     endDate,
-    onEndDateChange,
-    agreementNumber
+    agreementNumber,
+    onSearchFormChange
 }) => {
+
+    let onTextChange = (event) => {
+        let object = {};
+        object[event.target.name] = event.target.value;
+        onSearchFormChange(object);
+    };
+
+    let onStartDateChange = (event, date) => {
+        onSearchFormChange({ startDate: date });
+    };
+
+    let onEndDateChange = (event, date) => {
+        onSearchFormChange({ endDate: date });
+    };
+
+    let onCustomerTypeChange = (event, index, value) => {
+        onSearchFormChange({ customerType: value });
+    };
+
+    let onCSMChange = (event, index, value) => {
+        onSearchFormChange({ csm: value });
+    };
+
+    let onApproverChange = (event, index, value) => {
+        onSearchFormChange({ approver: value });
+    };
+
+    let onStatusChange = (event, index, value) => {
+        onSearchFormChange({ status: value });
+    };
+
     return (
         <div>
             <Grid>

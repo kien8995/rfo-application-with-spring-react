@@ -4,7 +4,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
 from "material-ui/Table";
 
 const SearchTable = ({
-    handleRowSelection,
+    onRowSelection,
     tableData
 }) => {
     return (
@@ -16,7 +16,7 @@ const SearchTable = ({
                     fixedFooter={true}
                     selectable={true}
                     multiSelectable={false}
-                    onRowSelection={handleRowSelection}
+                    onRowSelection={onRowSelection}
                     >
                     <TableHeader
                         displaySelectAll={true}

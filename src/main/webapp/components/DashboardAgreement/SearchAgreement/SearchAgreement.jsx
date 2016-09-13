@@ -71,21 +71,55 @@ class SearchAgreement extends Component {
         super(props);
 
         this.state = {
-
+            searchForm: {
+                customerType: "",
+                customerName: "",
+                customerCode: "",
+                postcode: "",
+                csm: "",
+                approver: "",
+                status: "",
+                startDate: null,
+                endDate: null,
+                agreementNumber: ""
+            },
+            searchTable: {
+                agreementList: [],
+                selectedRow: null
+            }
         };
+
+        this.onSearchFormChange = this.onSearchFormChange.bind(this);
+        this.onSearchTableChange = this.onSearchTableChange.bind(this);
     }
 
-    onTextChange() {
-        
+    onSearchFormChange(value) {
+        this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
+    }
+
+    onSearchTableChange(value) {
+        this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
     }
 
     render() {
         return (
             <div>
                 <Grid>
-                    <SearchForm />
+                    <SearchForm
+                        customerType={this.state.searchForm.customerType}
+                        customerName={this.state.searchForm.customerName}
+                        customerCode={this.state.searchForm.customerCode}
+                        postcode={this.state.searchForm.postcode}
+                        csm={this.state.searchForm.csm}
+                        approver={this.state.searchForm.approver}
+                        status={this.state.searchForm.status}
+                        startDate={this.state.searchForm.startDate}
+                        endDate={this.state.searchForm.endDate}
+                        agreementNumber={this.state.searchForm.agreementNumber}
+                        onSearchFormChange={this.onSearchFormChange}/>
                     <SearchTable
-                        tableData={tableData}/>
+                        tableData={tableData}
+                        onSearchTableChange={this.onSearchTableChange}/>
                     <RaisedButton
                         label="View Agreement"
                         primary={true}
