@@ -1,11 +1,12 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as agreementActions from "../../../actions/agreementActions";
+
 import RaisedButton from "material-ui/RaisedButton";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import {SearchForm} from "./SearchForm";
 import {SearchTable} from "./SearchTable";
-
-import Dialog from "material-ui/Dialog";
-import FlatButton from "material-ui/FlatButton";
 
 let tableData = [
     {
@@ -65,54 +66,60 @@ let tableData = [
     }
 ];
 
-const customContentStyle = {
-  width: "100%",
-  maxWidth: "none",
-};
-
 class SearchAgreement extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            open: false
+            searchForm: {
+                customerType: "",
+                customerName: "",
+                customerCode: "",
+                postcode: "",
+                csm: "",
+                approver: "",
+                status: "",
+                startDate: null,
+                endDate: null,
+                agreementNumber: ""
+            },
+            searchTable: {
+                agreementList: [],
+                selectedRow: null
+            }
         };
 
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.onSearchFormChange = this.onSearchFormChange.bind(this);
+        this.onSearchTableChange = this.onSearchTableChange.bind(this);
     }
 
-    handleOpen() {
-        this.setState({ open: true });
+    onSearchFormChange(value) {
+        this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
     }
 
-    handleClose() {
-        this.setState({ open: false });
+    onSearchTableChange(value) {
+        this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
     }
 
     render() {
-
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-                />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                disabled={true}
-                onTouchTap={this.handleClose}
-                />,
-        ];
-
         return (
             <div>
                 <Grid>
-                    <SearchForm />
+                    <SearchForm
+                        customerType={this.state.searchForm.customerType}
+                        customerName={this.state.searchForm.customerName}
+                        customerCode={this.state.searchForm.customerCode}
+                        postcode={this.state.searchForm.postcode}
+                        csm={this.state.searchForm.csm}
+                        approver={this.state.searchForm.approver}
+                        status={this.state.searchForm.status}
+                        startDate={this.state.searchForm.startDate}
+                        endDate={this.state.searchForm.endDate}
+                        agreementNumber={this.state.searchForm.agreementNumber}
+                        onSearchFormChange={this.onSearchFormChange}/>
                     <SearchTable
-                        tableData={tableData}/>
-
+                        tableData={tableData}
+                        onSearchTableChange={this.onSearchTableChange}/>
                     <RaisedButton
                         label="View Agreement"
                         primary={true}
@@ -120,32 +127,21 @@ class SearchAgreement extends Component {
                         // disabled={this.state.customer.selectedRow == null}
                         />
                 </Grid>
-
-                <div>
-                    <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen} />
-                    <Dialog
-                        title="Dialog With Actions"
-                        actions={actions}
-                        modal={true}
-                        open={this.state.open}
-                        contentStyle={customContentStyle}
-                        >
-                        Only actions can close this dialog.
-
-                        <RaisedButton label="<asdasd></asdasd>g" onTouchTap={this.handleOpen} />
-                        <Dialog
-                            title="asdasdasdns"
-                            modal={true}
-                            actions={actions}
-                            open={this.state.open}
-                            >
-                            asdasdasd
-                        </Dialog>
-                    </Dialog>
-                </div>
             </div>
         );
     }
 }
 
-export default SearchAgreement;
+function mapStateToProps(state, ownProps) {
+    return {
+        agreements: state.agreements
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        agreementActions: bindActionCreators(agreementActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAgreement);

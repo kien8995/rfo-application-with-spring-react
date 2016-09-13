@@ -1,8 +1,19 @@
 import axios from "axios";
 
 class AgreementApi {
+
+    static loadAllAgreements() {
+        return axios(
+            {
+                url: "http://localhost:8080/api/agreements",
+                timeout: 20000,
+                method: "get",
+                responseType: "json",
+            }
+        );
+    }
+
     static addAgreement(agreement) {
-        console.log(agreement);
         return axios(
             {
                 url: "http://localhost:8080/api/agreements",
@@ -13,7 +24,6 @@ class AgreementApi {
             }
         );
     }
-
 }
 
 export default AgreementApi;
