@@ -46,8 +46,8 @@ const SearchTable = ({
                         stripedRows={false}
                         >
                         {tableData.map((row, index) => (
-                            <TableRow key={row.id} value={row} selected={row.selected}>
-                                <TableRowColumn>{row.rfoNumber}</TableRowColumn>
+                            <TableRow key={`${row.agreementPK.agreementNumber}${row.agreementPK.variantNumber}`} value={row} selected={row.selected}>
+                                <TableRowColumn>{row.agreementPK.agreementNumber}</TableRowColumn>
                                 <TableRowColumn>{row.customer}</TableRowColumn>
                                 <TableRowColumn>{row.postcode}</TableRowColumn>
                                 <TableRowColumn>{row.csm}</TableRowColumn>
