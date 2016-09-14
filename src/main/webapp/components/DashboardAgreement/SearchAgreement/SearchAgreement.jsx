@@ -8,64 +8,6 @@ import {Grid, Row, Col} from "react-flexbox-grid";
 import {SearchForm} from "./SearchForm";
 import {SearchTable} from "./SearchTable";
 
-let tableData = [
-    {
-        id: 1,
-        rfoNumber: "SCO428",
-        customer: "Focus Retail Group",
-        postcode: "RG21 3RF",
-        csm: "Tim Slater",
-        startDate: "01/02/06",
-        endDate: "01/08/06",
-        agreement: "01697 / 002",
-        status: "Approved"
-    },
-    {
-        id: 2,
-        rfoNumber: "SCO428",
-        customer: "Focus Retail Group",
-        postcode: "RG21 3RF",
-        csm: "Tim Slater",
-        startDate: "01/02/06",
-        endDate: "01/08/06",
-        agreement: "01697 / 002",
-        status: "Approved"
-    },
-    {
-        id: 3,
-        rfoNumber: "SCO428",
-        customer: "Focus Retail Group",
-        postcode: "RG21 3RF",
-        csm: "Tim Slater",
-        startDate: "01/02/06",
-        endDate: "01/08/06",
-        agreement: "01697 / 002",
-        status: "Approved"
-    },
-    {
-        id: 4,
-        rfoNumber: "SCO428",
-        customer: "Focus Retail Group",
-        postcode: "RG21 3RF",
-        csm: "Tim Slater",
-        startDate: "01/02/06",
-        endDate: "01/08/06",
-        agreement: "01697 / 002",
-        status: "Approved"
-    },
-    {
-        id: 5,
-        rfoNumber: "SCO428",
-        customer: "Focus Retail Group",
-        postcode: "RG21 3RF",
-        csm: "Tim Slater",
-        startDate: "01/02/06",
-        endDate: "01/08/06",
-        agreement: "01697 / 002",
-        status: "Approved"
-    }
-];
-
 class SearchAgreement extends Component {
     constructor(props) {
         super(props);
@@ -93,12 +35,23 @@ class SearchAgreement extends Component {
         this.onSearchTableChange = this.onSearchTableChange.bind(this);
     }
 
+    componentDidMount() {
+        console.log("callback before");
+        this.props.agreementActions.loadAllAgreements().then(() => {
+            console.log("callback call");
+            this.onSearchTableChange({agreementList: this.props.agreements});
+            console.log(this.state.searchTable.agreementList);
+        });
+        console.log("callback after");
+        // onSearchTableChange({agreementList: this.props.agreements});
+    }
+
     onSearchFormChange(value) {
         this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
     }
 
     onSearchTableChange(value) {
-        this.setState({ searchForm: Object.assign({}, this.state.searchForm, value) });
+        this.setState({ searchTable: Object.assign({}, this.state.searchTable, value) });
     }
 
     render() {
@@ -106,6 +59,7 @@ class SearchAgreement extends Component {
             <div>
                 <Grid>
                     <SearchForm
+                        agreements={this.props.agreements}
                         customerType={this.state.searchForm.customerType}
                         customerName={this.state.searchForm.customerName}
                         customerCode={this.state.searchForm.customerCode}
@@ -116,10 +70,11 @@ class SearchAgreement extends Component {
                         startDate={this.state.searchForm.startDate}
                         endDate={this.state.searchForm.endDate}
                         agreementNumber={this.state.searchForm.agreementNumber}
-                        onSearchFormChange={this.onSearchFormChange}/>
+                        onSearchFormChange={this.onSearchFormChange}
+                        onSearchTableChange={this.onSearchTableChange} />
                     <SearchTable
-                        tableData={tableData}
-                        onSearchTableChange={this.onSearchTableChange}/>
+                        tableData={this.state.searchTable.agreementList}
+                        onSearchTableChange={this.onSearchTableChange} />
                     <RaisedButton
                         label="View Agreement"
                         primary={true}

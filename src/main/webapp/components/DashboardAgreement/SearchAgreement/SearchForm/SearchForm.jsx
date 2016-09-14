@@ -12,6 +12,7 @@ const items = [
 ];
 
 const SearchForm = ({
+    agreements,
     customerType,
     customerName,
     customerCode,
@@ -22,7 +23,8 @@ const SearchForm = ({
     startDate,
     endDate,
     agreementNumber,
-    onSearchFormChange
+    onSearchFormChange,
+    onSearchTableChange
 }) => {
 
     let onTextChange = (event) => {
