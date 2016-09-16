@@ -1,12 +1,29 @@
-import React, {Component} from "react";
+import React from "react";
 import {Grid, Row, Col} from "react-flexbox-grid";
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
 from "material-ui/Table";
 
+import dateFormat from "dateformat";
+
 const SearchTable = ({
-    onRowSelection,
-    tableData
+    tableData,
+    onSearchTableChange
 }) => {
+
+    let onRowSelected = (key) => {
+        for (let agreement of tableData) {
+            agreement["selected"] = false;
+        }
+
+        if (key.length === 1) {
+            tableData[key[0]]["selected"] = true;
+            onSearchTableChange({ agreementList: tableData });
+            onSearchTableChange({ selectedRow: tableData[key[0]] });
+        } else {
+            onSearchTableChange({ selectedRow: null });
+        }
+    };
+
     return (
         <div>
             <Grid>
@@ -16,7 +33,7 @@ const SearchTable = ({
                     fixedFooter={true}
                     selectable={true}
                     multiSelectable={false}
-                    onRowSelection={onRowSelection}
+                    onRowSelection={onRowSelected}
                     >
                     <TableHeader
                         displaySelectAll={true}
@@ -46,15 +63,15 @@ const SearchTable = ({
                         stripedRows={false}
                         >
                         {tableData.map((row, index) => (
-                            <TableRow key={`${row.agreementPK.agreementNumber}${row.agreementPK.variantNumber}`} value={row} selected={row.selected}>
-                                <TableRowColumn>{row.agreementPK.agreementNumber}</TableRowColumn>
-                                <TableRowColumn>{row.customer}</TableRowColumn>
-                                <TableRowColumn>{row.postcode}</TableRowColumn>
-                                <TableRowColumn>{row.csm}</TableRowColumn>
-                                <TableRowColumn>{row.startDate}</TableRowColumn>
-                                <TableRowColumn>{row.endDate}</TableRowColumn>
-                                <TableRowColumn>{row.agreement}</TableRowColumn>
-                                <TableRowColumn>{row.status}</TableRowColumn>
+                            <TableRow key={`${row.agreementPK.agreementNumber}-${row.agreementPK.variantNumber}`} value={row} selected={row.selected}>
+                                <TableRowColumn>{row.rfoNumberSet[0].rfoNumber}</TableRowColumn>
+                                <TableRowColumn>{row.rfoNumberSet[0].rfoName}</TableRowColumn>
+                                <TableRowColumn>{row.rfoNumberSet[0].postcode}</TableRowColumn>
+                                <TableRowColumn><a href="#">{row.authorisedBy}</a></TableRowColumn>
+                                <TableRowColumn>{dateFormat(new Date(row.startDate), "yyyy-mm-dd") }</TableRowColumn>
+                                <TableRowColumn>{dateFormat(new Date(row.endDate), "yyyy-mm-dd") }</TableRowColumn>
+                                <TableRowColumn>{`${row.agreementPK.agreementNumber}/${row.agreementPK.variantNumber}`}</TableRowColumn>
+                                <TableRowColumn>{row.agreementStatus.status}</TableRowColumn>
                             </TableRow>
                         )) }
                     </TableBody>

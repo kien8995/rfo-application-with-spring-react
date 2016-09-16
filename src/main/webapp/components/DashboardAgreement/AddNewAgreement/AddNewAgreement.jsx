@@ -251,7 +251,7 @@ class AddNewAgreement extends Component {
                 combinability: this.state.basics.combinability,
                 numberOfRegistrations: 1,
                 discountUnit: this.state.basics.discountUnit,
-                authorisedBy: null,
+                authorisedBy: "Tim Slater",
                 createdBy: null,
                 lastUpdatedBy: null,
                 agreementStatus: {
