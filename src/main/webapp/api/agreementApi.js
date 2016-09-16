@@ -24,6 +24,18 @@ class AgreementApi {
             }
         );
     }
+
+    static updateAgreement(agreement) {
+        return axios(
+            {
+                url: "http://localhost:8080/api/agreements",
+                timeout: 20000,
+                method: "put",
+                responseType: "json",
+                data: JSON.parse(JSON.stringify(agreement)),
+            }
+        );
+    }
 }
 
 export default AgreementApi;

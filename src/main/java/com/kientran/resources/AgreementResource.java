@@ -33,4 +33,10 @@ public class AgreementResource {
 		Agreement result = agreementRepository.save(agreement);
 		return new ResponseEntity<Agreement>(result, HttpStatus.CREATED);
 	}
+
+	@RequestMapping(path = "/agreements", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Agreement> update(@RequestBody Agreement agreement) {
+		Agreement result = agreementRepository.save(agreement);
+		return new ResponseEntity<Agreement>(result, HttpStatus.OK);
+	}
 }

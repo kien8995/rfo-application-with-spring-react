@@ -51,14 +51,41 @@ class SearchAgreement extends Component {
 
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+
+        this.approveAgreement = this.approveAgreement.bind(this);
+        this.terminateAgreement = this.terminateAgreement.bind(this);
     }
 
     componentDidMount() {
-        this.props.agreementActions.loadAllAgreements().then(() => {
-            this.onSearchTableChange({ agreementList: this.props.agreements });
-        });
-        // onSearchTableChange({agreementList: this.props.agreements});
+        // this.props.agreementActions.loadAllAgreements().then(() => {
+        //     let list = this.props.agreements.map(agreement => {
+        //         return Object.assign({}, agreement);
+        //     });
+        //     this.onSearchTableChange({ agreementList: list });
+        // });
+        onSearchTableChange({agreementList: this.props.agreements});
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("out");
+        if (this.props !== nextProps && this.state.searchTable.selectedRow !== null && nextProps.agreements !== null) {
+            console.log("in");
+            let list = this.props.agreements.map((agreement, index) => {
+                return Object.assign({}, agreement);
+            });
+
+            let agreement = this.props.agreements.filter(agreement => {
+                return this.state.searchTable.selectedRow.agreementPK.agreementNumber === agreement.agreementPK.agreementNumber;
+            });
+
+            this.onSearchTableChange({
+                agreementList: list,
+                selectedRow: agreement[0]
+            });
+            console.log(this.props.agreements);
+        }
+    }
+
 
     handleOpen() {
         this.setState({ open: true });
@@ -80,43 +107,69 @@ class SearchAgreement extends Component {
         this.setState({ confirmation: Object.assign({}, this.state.confirmation, value) });
     }
 
+    approveAgreement() {
+        const agreement = Object.assign({}, this.state.searchTable.selectedRow);
+        this.props.agreementActions.updateAgreement(Object.assign({}, agreement, { agreementStatus: { agreementStatusId: 3 } }));
+    }
+
+    terminateAgreement() {
+        const agreement = Object.assign({}, this.state.searchTable.selectedRow);
+        this.props.agreementActions.updateAgreement(Object.assign({}, agreement, { agreementStatus: { agreementStatusId: 4 } }));
+    }
+
     render() {
 
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleClose}
-                />
-        ];
-
         const agreement = this.state.searchTable.selectedRow;
-
         const customer = {
-            rfoNumber: agreement.rfoNumberSet[0].rfoNumber,
-            rfoName: agreement.rfoNumberSet[0].rfoName,
-            postcode: agreement.rfoNumberSet[0].postcode,
-            customerType: agreement.rfoNumberSet[0].customerType.customerType,
-            businessArea: agreement.rfoNumberSet[0].company.businessArea,
-            region: agreement.rfoNumberSet[0].regionType.regionType
+            rfoNumber: agreement === null ? "" : agreement.rfoNumberSet[0].rfoNumber,
+            rfoName: agreement === null ? "" : agreement.rfoNumberSet[0].rfoName,
+            postcode: agreement === null ? "" : agreement.rfoNumberSet[0].postcode,
+            customerType: agreement === null ? "" : agreement.rfoNumberSet[0].customerType.customerType,
+            businessArea: agreement === null ? "" : agreement.rfoNumberSet[0].company.businessArea,
+            region: agreement === null ? "" : agreement.rfoNumberSet[0].regionType.regionType
         };
 
         const basics = {
-            agreementName: agreement.name,
-            agreementDescription: agreement.description,
-            startDate: new Date(agreement.startDate),
-            endDate: new Date(agreement.endDate),
-            signedAgreement: agreement.signRequired,
-            fundingMethod: agreement.fundingMethod.fundingMethodName,
-            paymentTo: agreement.paymentTo,
+            agreementName: agreement === null ? "" : agreement.name,
+            agreementDescription: agreement === null ? "" : agreement.description,
+            startDate: agreement === null ? null : new Date(agreement.startDate),
+            endDate: agreement === null ? null : new Date(agreement.endDate),
+            signedAgreement: agreement === null ? "" : agreement.signRequired,
+            fundingMethod: agreement === null ? "" : agreement.fundingMethod.fundingMethodName,
+            paymentTo: agreement === null ? "" : agreement.paymentTo,
             agendaPayment: "",
-            handlingChange: agreement.handlingChange,
-            dealersVisibility: agreement.dealerVisibility,
+            handlingChange: agreement === null ? "" : agreement.handlingChange,
+            dealersVisibility: agreement === null ? "" : agreement.dealerVisibility,
             volumeDiscountType: "",
-            discountUnit: agreement.discountUnit,
-            combinability: agreement.combinability,
-            status: agreement.agreementStatus.status
+            discountUnit: agreement === null ? "" : agreement.discountUnit,
+            combinability: agreement === null ? "" : agreement.combinability,
+            status: agreement === null ? "" : agreement.agreementStatus.status
         };
+
+        let actions = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleClose} />
+        ];
+
+        if (basics.status === "Awaiting Approval") {
+            actions.unshift(
+                <FlatButton
+                    label="Approve"
+                    primary={true}
+                    onTouchTap={this.approveAgreement} />
+            );
+        }
+
+        if (basics.status === "Approved") {
+            actions.unshift(
+                <FlatButton
+                    label="Terminate"
+                    primary={true}
+                    onTouchTap={this.terminateAgreement} />
+            );
+        }
 
         return (
             <div>
@@ -145,7 +198,7 @@ class SearchAgreement extends Component {
                         disabled={this.state.searchTable.selectedRow == null}
                         />
                     <Dialog
-                        title="Dialog With Custom Width"
+                        title="View Agreement"
                         actions={actions}
                         modal={true}
                         contentStyle={customContentStyle}

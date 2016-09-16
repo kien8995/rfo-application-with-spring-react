@@ -27,6 +27,19 @@ export function addAgreementError() {
     };
 }
 
+export function updateAgreementSuccess(agreement) {
+    return {
+        type: types.UPDATE_AGREEMENT_SUCCESS,
+        agreement
+    };
+}
+
+export function updateAgreementError() {
+    return {
+        type: types.UPDATE_AGREEMENT_ERROR
+    };
+}
+
 export function loadAllAgreements() {
     return function (dispatch) {
         return AgreementApi.loadAllAgreements().then(agreements => {
@@ -42,6 +55,16 @@ export function addAgreement(agreement) {
         return AgreementApi.addAgreement(agreement).then(agreement => {
             console.log(agreement);
             dispatch(addAgreementSuccess(JSON.parse(JSON.stringify(agreement.data))));
+        }).catch(e => {
+            throw(e);
+        });
+    };
+}
+
+export function updateAgreement(agreement) {
+    return function (dispatch) {
+        return AgreementApi.updateAgreement(agreement).then(agreement => {
+            dispatch(updateAgreementSuccess(JSON.parse(JSON.stringify(agreement.data))));
         }).catch(e => {
             throw(e);
         });

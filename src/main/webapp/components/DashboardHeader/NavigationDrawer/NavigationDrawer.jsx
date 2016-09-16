@@ -11,11 +11,23 @@ import ContentInbox from "material-ui/svg-icons/content/inbox";
 import ContentDrafts from "material-ui/svg-icons/content/drafts";
 import ContentSend from "material-ui/svg-icons/content/send";
 
-function handleTouchTap() {
-    console.log("asdasd");
-}
+import { browserHistory } from "react-router";
 
-const NavigationDrawer = ({open, handleToggle}) => {
+const NavigationDrawer = ({
+    open, handleToggle
+}) => {
+
+    let goHome = () => {
+        browserHistory.push("/dashboard/home");
+    };
+
+    let goAddAgreement = () => {
+        browserHistory.push("/dashboard/add-new-agreement");
+    };
+
+    let goSearchAgreement = () => {
+        browserHistory.push("/dashboard/search-agreement");
+    };
 
     return (
         <div>
@@ -29,7 +41,10 @@ const NavigationDrawer = ({open, handleToggle}) => {
                 <AppBar title="Honda"
                     showMenuIconButton={false}/>
                 <List>
-                    <ListItem primaryText="Home" leftIcon={<ContentDrafts />} />
+                    <ListItem
+                        primaryText="Home"
+                        leftIcon={<ContentDrafts />}
+                        onTouchTap={goHome} />
                     <ListItem
                         primaryText="Agreements"
                         leftIcon={<ContentInbox />}
@@ -39,13 +54,13 @@ const NavigationDrawer = ({open, handleToggle}) => {
                                 key={1}
                                 primaryText="Add New"
                                 leftIcon={<ActionGrade />}
-                                onTouchTap={handleTouchTap}
+                                onTouchTap={goAddAgreement}
                                 />,
                             <ListItem
                                 key={2}
                                 primaryText="Search"
                                 leftIcon={<ContentSend />}
-                                />,
+                                onTouchTap={goSearchAgreement} />,
                             <ListItem
                                 key={3}
                                 primaryText="Awaiting Appr."
